@@ -11,6 +11,9 @@ services:
       #- "67:67/udp"
       # Uncomment the line below if you are using Pi-hole as your NTP server
       #- "123:123/udp"
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
     environment:
       # Set the appropriate timezone for your location from
       # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones, e.g:
@@ -21,8 +24,6 @@ services:
       FTLCONF_dns_listeningMode: 'ALL'
 
       FTLCONF_webserver_port: 80
-
-      DNS1: cloudflared#5053
 
       LOCAL_DOMAIN: ${LOCAL_DOMAIN}
       TARGET_IP: ${TARGET_IP}
@@ -53,21 +54,8 @@ services:
     restart: unless-stopped
     networks:
       - proxy-agim
-      - dns-internal
-    depends_on:
-      - cloudflared
-
-  cloudflared:
-    container_name: cloudflared
-    image: cloudflare/cloudflared:latest
-    command: proxy-dns --address 0.0.0.0 --port 5053 --upstream https://1.1.1.1/dns-query --upstream https://1.0.0.1/dns-query
-    restart: unless-stopped
-    networks:
-      - dns-internal
 
 networks:
   proxy-agim:
     external: true
     name: nginx-main
-  dns-internal:
-    driver: bridge
