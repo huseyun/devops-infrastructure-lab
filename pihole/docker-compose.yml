@@ -28,6 +28,11 @@ services:
       LOCAL_DOMAIN: ${LOCAL_DOMAIN}
       TARGET_IP: ${TARGET_IP}
 
+      # DNS1 ve DNS2'yi direkt dış sunucular yapıyoruz.
+      # (Artık cloudflared yok, direkt internete çıkıyor)
+      DNS1: 8.8.8.8
+      DNS2: 1.1.1.1
+
       FTLCONF_misc_etc_dnsmasq_d: 'true'
     # Volumes store your data between container upgrades
     volumes:
