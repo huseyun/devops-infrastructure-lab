@@ -1,7 +1,5 @@
 services:
   nginx:
-    env_file:
-    - ../global.env
     image: nginx
     restart: always
     ports:

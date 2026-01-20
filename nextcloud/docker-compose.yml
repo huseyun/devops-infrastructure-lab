@@ -1,15 +1,9 @@
 version: '3.8'
 
-x-common-env: &ortak_env_dosyasi
-  env_file:
-    - ../global.env
-    - ./.env
-
 services:
   app:
     build: .
     restart: always
-    <<: *ortak_env_dosyasi
     volumes:
       - ${DATA_LOCATION}:/var/www/html/data
       - ${CONFIG_LOCATION}:/var/www/html/config
@@ -33,7 +27,6 @@ services:
       - nextcloud-internal
 
   db:
-    <<: *ortak_env_dosyasi
     image: postgres:latest
     restart: always
     volumes:
