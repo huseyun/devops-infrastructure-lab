@@ -1,0 +1,64 @@
+version: '3.8'
+
+x-common-env: &ortak_env_dosyasi
+  env_file:
+    - ../global.env
+    - ./.env
+
+services:
+  app:
+    build: .
+    restart: always
+    <<: *ortak_env_dosyasi
+    volumes:
+      - ${DATA_LOCATION}:/var/www/html/data
+      - ${CONFIG_LOCATION}:/var/www/html/config
+      - nextcloud_apps:/var/www/html/custom_apps
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - REDIS_HOST=redis
+
+      - NEXTCLOUD_TRUSTED_DOMAINS=nextcloud.${LOCAL_DOMAIN}
+      - OVERWRITEPROTOCOL=http
+      - OVERWRITEHOST=nextcloud.${LOCAL_DOMAIN}
+      - OVERWRITECLIURL=http://nextcloud.${LOCAL_DOMAIN}
+    depends_on:
+      - db
+      - redis
+    networks:
+      - proxy-agi
+      - nextcloud-internal
+
+  db:
+    <<: *ortak_env_dosyasi
+    image: postgres:latest
+    restart: always
+    volumes:
+      - nextcloud_db:/var/lib/postgresql
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    networks:
+      - nextcloud-internal
+
+  redis:
+    image: redis:latest
+    restart: always
+    networks:
+      - nextcloud-internal
+
+volumes:
+  nextcloud_apps:
+  nextcloud_db:
+
+networks:
+  proxy-agi:
+    external: true
+    name: nginx-main
+
+  nextcloud-internal:
+    driver: bridge

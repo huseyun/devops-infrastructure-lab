@@ -1,0 +1,20 @@
+services:
+  nginx:
+    env_file:
+    - ../global.env
+    image: nginx
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+        # Şablon dosyamızı 'templates' klasörüne bağlıyoruz
+        - ./default.conf.template:/etc/nginx/templates/default.conf.template
+    environment:
+      - DOMAIN=${LOCAL_DOMAIN}
+    networks:
+      - proxy-agim
+
+networks:
+  proxy-agim:
+    external: true
+    name: nginx-main
