@@ -32,14 +32,8 @@ services:
     volumes:
       # For persisting Pi-hole's databases and common configuration file
       - ./etc-pihole:/etc/pihole
-      # Scripti "custom-cont-init.d" klasörüne atıyoruz ki başlamadan çalışsın
-      # (Resmi imajda bu klasör /etc/cont-init.d veya /doker-entrypoint-init.d olabilir,
-      # pihole/pihole imajı genellikle /etc/cont-init.d/ içindeki scriptleri çalıştırır 
-      # ama garanti yöntemlerden biri volumes altında direkt dosya mount etmektir, 
-      # fakat en temizi volume mount ile dnsmasq klasörüne atmaktır. 
-      # Biz yukarıdaki script ile dinamik oluşturuyoruz.)
       
-      # - ./scripts/pihole-init.sh:/etc/cont-init.d/20-custom-dns.sh
+      - ./scripts/pihole-init.sh:/etc/cont-init.d/20-custom-dns.sh
       # Uncomment the below if you have custom dnsmasq config files that you want to persist. Not needed for most starting fresh with Pi-hole v6. If you're upgrading from v5 you and have used this directory before, you should keep it enabled for the first v6 container start to allow for a complete migration. It can be removed afterwards. Needs environment variable FTLCONF_misc_etc_dnsmasq_d: 'true'
       # - './etc-dnsmasq.d:/etc/dnsmasq.d'
     cap_add:
@@ -56,22 +50,6 @@ services:
       - dns-internal
     depends_on:
       - cloudflared
-    entrypoint:
-      - /bin/sh
-      - -c
-      - |
-        echo "🔥 Dinamik DNS Ayari Yapiliyor..."
-        
-        # 1. Klasör yoksa oluştur (Hata almamak için)
-        mkdir -p /etc/dnsmasq.d
-        
-        # 2. Ayar dosyasını yaz
-        echo "address=/.${LOCAL_DOMAIN}/${TARGET_IP}" > /etc/dnsmasq.d/99-wildcard.conf
-        echo "✅ Ayar Yazildi: address=/.${LOCAL_DOMAIN}/${TARGET_IP}"
-        
-        # 3. Pi-hole v6'yı başlat (Ön planda çalışması için -f parametresi ile)
-        echo "🚀 Pi-hole FTL Baslatiliyor..."
-        exec pihole-FTL -f
 
   cloudflared:
     container_name: cloudflared
