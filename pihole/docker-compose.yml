@@ -26,6 +26,8 @@ services:
       TARGET_IP: ${TARGET_IP}
 
       DNS1: cloudflared#5053
+
+      FTLCONF_misc_etc_dnsmasq_d: 'true'
     # Volumes store your data between container upgrades
     volumes:
       # For persisting Pi-hole's databases and common configuration file
