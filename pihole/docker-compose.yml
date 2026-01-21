@@ -27,7 +27,12 @@ services:
 
       DNS1: cloudflared#5053
       
-      FTLCONF_misc_etc_dnsmasq_d: 'true'
+      FTLCONF_dns_dnsmasqLines: >-
+              [
+                "address=/.${LOCAL_DOMAIN}/${TARGET_IP}",
+                "server=/ts.net/100.100.100.100",
+                "rev-server=100.64.0.0/10,100.100.100.100"
+              ]
     # Volumes store your data between container upgrades
     volumes:
       # For persisting Pi-hole's databases and common configuration file
