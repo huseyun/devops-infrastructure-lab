@@ -26,8 +26,6 @@ services:
       TARGET_IP: ${TARGET_IP}
 
       DNS1: cloudflared#5053
-      
-      FTLCONF_dns_dnsmasqLines: '["address=/.${LOCAL_DOMAIN}/${TARGET_IP}", "server=/ts.net/100.100.100.100", "rev-server=100.64.0.0/10,100.100.100.100"]'
     # Volumes store your data between container upgrades
     volumes:
       # For persisting Pi-hole's databases and common configuration file
@@ -56,6 +54,15 @@ services:
       - dns-internal
     depends_on:
       - cloudflared
+    entrypoint:
+      - /bin/sh
+      - -c
+      - |
+        echo "🔥 Dinamik DNS Ayari Yapiliyor..."
+        echo "address=/.${LOCAL_DOMAIN}/${TARGET_IP}" > /etc/dnsmasq.d/99-wildcard.conf
+        echo "✅ Ayar Yazildi: address=/.${LOCAL_DOMAIN}/${TARGET_IP}"
+        # Pi-hole'un orijinal başlangıç komutunu çalıştır
+        exec /init
 
   cloudflared:
     container_name: cloudflared
