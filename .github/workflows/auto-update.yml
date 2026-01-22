@@ -37,6 +37,22 @@ jobs:
           
           echo ".env dosyaları yerleştirildi."
 
+
+      - name: İzinleri ve Sahipliği Garantiye Al
+        run: |
+          echo "1. Tüm .sh scriptlerine çalıştırma izni veriliyor..."
+          find . -name "*.sh" -exec chmod +x {} \;
+
+          echo "2. Nextcloud klasörleri için recursive (derinlemesine) izinler ayarlanıyor..."
+          
+          echo "Config klasörü izinleri düzenleniyor..."
+          sudo chown -R 33:33 nextcloud/config
+
+          echo "Data klasörü izinleri düzenleniyor (Bu işlem veri boyutuna göre zaman alabilir)..."
+          sudo chown -R 33:33 nextcloud/data
+          
+          echo "İzin işlemleri tamamlandı."
+
       - name: Management Servislerini Güncelle
         run: |
           if [ -d "management" ]; then

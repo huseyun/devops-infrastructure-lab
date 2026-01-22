@@ -5,8 +5,8 @@ services:
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     volumes:
-      - ${DATA_LOCATION}:/var/www/html/data
-      - ${CONFIG_LOCATION}:/var/www/html/config
+      - ./data:/var/www/html/data
+      - ./config:/var/www/html/config
       - nextcloud_apps:/var/www/html/custom_apps
       # baslangic programlari yukleme scripti.
       - ./scripts/install-packages.sh:/docker-entrypoint-hooks.d/before-starting/install-packages.sh

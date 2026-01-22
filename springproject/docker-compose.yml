@@ -1,6 +1,7 @@
 services:
   db:
     image: postgres:18
+    restart: always
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     environment:
@@ -12,6 +13,7 @@ services:
 
   app:
     image: ghcr.io/huseyun/kulakliksatisapi:infrastructure-deployment
+    restart: always
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     ports:
