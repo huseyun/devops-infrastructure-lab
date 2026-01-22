@@ -2,10 +2,11 @@ services:
   nginx:
     image: nginx
     restart: always
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
     ports:
       - "80:80"
     volumes:
-        # Şablon dosyamızı 'templates' klasörüne bağlıyoruz
         - ./default.conf.template:/etc/nginx/templates/default.conf.template
     environment:
       - LOCAL_DOMAIN=${LOCAL_DOMAIN}

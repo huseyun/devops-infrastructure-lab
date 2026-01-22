@@ -2,6 +2,8 @@ services:
   app:
     image: nextcloud:latest
     restart: always
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
     volumes:
       - ${DATA_LOCATION}:/var/www/html/data
       - ${CONFIG_LOCATION}:/var/www/html/config
@@ -27,8 +29,10 @@ services:
       - nextcloud-internal
 
   db:
-    image: postgres:latest
+    image: postgres:18
     restart: always
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
     volumes:
       - nextcloud_db:/var/lib/postgresql
     environment:
@@ -41,6 +45,8 @@ services:
   redis:
     image: redis:latest
     restart: always
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
     networks:
       - nextcloud-internal
 

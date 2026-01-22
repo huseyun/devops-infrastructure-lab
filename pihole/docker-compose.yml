@@ -3,6 +3,8 @@ services:
   pihole:
     container_name: pihole
     image: pihole/pihole:latest
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true" # <--- BU SATIR ŞART
     ports:
       # DNS Ports
       - "53:53/tcp"
@@ -48,6 +50,8 @@ services:
   cloudflared:
     container_name: cloudflared
     image: cloudflare/cloudflared:latest
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
     command: proxy-dns --address 0.0.0.0 --port 5053 --upstream https://1.1.1.1/dns-query --upstream https://1.0.0.1/dns-query
     restart: unless-stopped
     networks:
