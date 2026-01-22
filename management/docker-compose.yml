@@ -1,0 +1,11 @@
+services:
+  watchtower:
+    image: nickfedor/watchtower:latest
+    container_name: watchtower
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - WATCHTOWER_CLEANUP=true       # Eski imajları siler
+      - WATCHTOWER_LABEL_ENABLE=true  # SADECE etiketli olanları günceller
+      - WATCHTOWER_POLL_INTERVAL=3600 # 1 Saatte bir kontrol eder

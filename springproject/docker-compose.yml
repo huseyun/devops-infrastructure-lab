@@ -1,6 +1,8 @@
 services:
   db:
-    image: postgres:15-alpine
+    image: postgres:18
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
     environment:
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
@@ -10,6 +12,8 @@ services:
 
   app:
     image: ghcr.io/huseyun/kulakliksatisapi:infrastructure-deployment
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
     ports:
       - "8080:8080"
     volumes:

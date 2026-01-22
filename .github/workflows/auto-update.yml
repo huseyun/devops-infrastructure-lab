@@ -1,0 +1,68 @@
+name: Infrastructure Sync
+
+# önceki görevleri boşverir, en son göreve odaklanır.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'nginx/**'
+      - 'pihole/**'
+      - 'nextcloud/**'
+      - 'management/**'
+      - 'springproject/**'
+      - '.github/workflows/**'
+
+jobs:
+  apply-config:
+    runs-on: [self-hosted, production-server]
+    
+    steps:
+      - name: En Güncel Ayarları Çek
+        uses: actions/checkout@v4
+
+      - name: Sırları Kasadan Getir
+        run: |
+          echo "Kalıcı .env dosyaları değişken üzerinden kopyalanıyor..."
+          
+          cp ${{ vars.SECRETS_PATH }}/nextcloud.env nextcloud/.env || echo "Nextcloud env bulunamadı"
+          cp ${{ vars.SECRETS_PATH }}/nginx.env nginx/.env || echo "Nginx env bulunamadı"
+          cp ${{ vars.SECRETS_PATH }}/pihole.env pihole/.env || echo "Pihole env bulunamadı"
+          cp ${{ vars.SECRETS_PATH }}/spring.env springproject/.env || echo "Spring env bulunamadı"
+          
+          echo ".env dosyaları yerleştirildi."
+
+      - name: Management Servislerini Güncelle
+        run: |
+          if [ -d "management" ]; then
+            echo "Management konfigürasyonu uygulanıyor..."
+            docker compose -f management/docker-compose.yml up -d --remove-orphans
+          fi
+
+      - name: Nginx Ayarlarını Güncelle
+        run: |
+          echo "Nginx konfigürasyonu uygulanıyor..."
+          docker compose -f nginx/docker-compose.yml up -d --remove-orphans
+
+      - name: Pi-hole Ayarlarını Güncelle
+        run: |
+          echo "Pi-hole konfigürasyonu uygulanıyor..."
+          docker compose -f pihole/docker-compose.yml up -d --remove-orphans
+
+      - name: Nextcloud Ayarlarını Güncelle
+        run: |
+          echo "Nextcloud konfigürasyonu uygulanıyor..."
+          docker compose -f nextcloud/docker-compose.yml up -d --remove-orphans
+
+      - name: Spring Projesi Konfigürasyonunu Güncelle
+        run: |
+          echo "Spring konfigürasyonu uygulanıyor..."
+          docker compose -f springproject/docker-compose.yml up -d --remove-orphans
+
+      - name: Temizlik
+        run: docker image prune -f
