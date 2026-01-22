@@ -1,6 +1,6 @@
 services:
   watchtower:
-    image: containrrr/watchtower
+    image: v2tec/watchtower
     container_name: watchtower
     restart: always
     volumes:
