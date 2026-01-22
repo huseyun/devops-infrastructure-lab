@@ -2,7 +2,7 @@ name: Infrastructure Sync
 
 on:
   workflow_dispatch:
-  
+
   push:
     branches: [ "cicd/autoupdate" ]
     paths:
@@ -63,5 +63,5 @@ jobs:
           echo "Spring konfigürasyonu uygulanıyor..."
           docker compose -f springproject/docker-compose.yml up -d --remove-orphans
 
-      - name: 🧹 Temizlik
+      - name: Temizlik
         run: docker image prune -f
