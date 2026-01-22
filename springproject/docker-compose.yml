@@ -4,10 +4,10 @@ services:
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     environment:
-      POSTGRES_USER: ${DB_USERNAME}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: postgres
-      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=postgres
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
     ports:
       - "5432:5432"
 
@@ -20,8 +20,8 @@ services:
     volumes:
       - ./application.properties:/app/application.properties
     environment:
-      DB_URL: ${DB_URL}
-      DB_USERNAME: ${DB_USERNAME}
-      DB_PASSWORD: ${DB_PASSWORD}
+      - DB_URL=${DB_URL}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
     depends_on:
       - db
