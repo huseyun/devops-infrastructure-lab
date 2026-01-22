@@ -1,6 +1,7 @@
 name: Infrastructure Sync
 
 # önceki görevleri boşverir, en son göreve odaklanır.
+# test change for debugging
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
