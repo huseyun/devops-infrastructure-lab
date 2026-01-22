@@ -1,6 +1,8 @@
 name: Infrastructure Sync
 
 on:
+  workflow_dispatch:
+  
   push:
     branches: [ "cicd/autoupdate" ]
     paths:
