@@ -11,6 +11,7 @@ on:
       - 'nextcloud/**'
       - 'management/**'
       - 'springproject/**'
+      - '.github/workflows/**'
 
 jobs:
   apply-config:
