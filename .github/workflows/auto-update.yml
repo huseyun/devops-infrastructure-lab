@@ -2,7 +2,7 @@ name: Infrastructure Sync
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "cicd/autoupdate" ]
     paths:
       - 'nginx/**'
       - 'pihole/**'
