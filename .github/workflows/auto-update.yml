@@ -1,5 +1,10 @@
 name: Infrastructure Sync
 
+# önceki görevleri boşverir, en son göreve odaklanır.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   workflow_dispatch:
 
@@ -15,28 +20,23 @@ on:
 
 jobs:
   apply-config:
-    runs-on: self-hosted
+    runs-on: [self-hosted, production-server]
     
     steps:
       - name: En Güncel Ayarları Çek
         uses: actions/checkout@v4
 
-      # DÜZELTİLMİŞ KISIM BURASI
       - name: Sırları Kasadan Getir
         run: |
           echo "Kalıcı .env dosyaları değişken üzerinden kopyalanıyor..."
-          
-          # ${{ vars.SECRETS_PATH }} GitHub'dan dinamik olarak gelir.
-          # Yarın klasör yolunu değiştirirsen, kodu değil GitHub'daki değişkeni güncellersin.
           
           cp ${{ vars.SECRETS_PATH }}/nextcloud.env nextcloud/.env || echo "Nextcloud env bulunamadı"
           cp ${{ vars.SECRETS_PATH }}/nginx.env nginx/.env || echo "Nginx env bulunamadı"
           cp ${{ vars.SECRETS_PATH }}/pihole.env pihole/.env || echo "Pihole env bulunamadı"
           cp ${{ vars.SECRETS_PATH }}/spring.env springproject/.env || echo "Spring env bulunamadı"
           
-          echo "✅ .env dosyaları yerleştirildi."
+          echo ".env dosyaları yerleştirildi."
 
-      # ... Buradan sonrası aynı (docker compose adımları) ...
       - name: Management Servislerini Güncelle
         run: |
           if [ -d "management" ]; then

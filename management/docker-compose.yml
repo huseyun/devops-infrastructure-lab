@@ -4,9 +4,8 @@ services:
     container_name: watchtower
     restart: always
     volumes:
-      # Docker'ın beyniyle (socket) konuşması için gerekli:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
-      - WATCHTOWER_CLEANUP=true       # Eski imajları siler (Disk dolmaz)
-      - WATCHTOWER_LABEL_ENABLE=true  # SADECE etiketli olanları günceller (Güvenlik için şart)
-      - WATCHTOWER_POLL_INTERVAL=3600 # 1 Saatte bir kontrol eder (İsteğe göre değiştir)
+      - WATCHTOWER_CLEANUP=true       # Eski imajları siler
+      - WATCHTOWER_LABEL_ENABLE=true  # SADECE etiketli olanları günceller
+      - WATCHTOWER_POLL_INTERVAL=3600 # 1 Saatte bir kontrol eder
