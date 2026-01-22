@@ -23,6 +23,12 @@ jobs:
     runs-on: [self-hosted, production-server]
     
     steps:
+
+      - name: Build Öncesi Kilitli Dosyaları Aç (Fix Permissions)
+        run: |
+          echo "Önceki buildden kalan www-data sahipliği geri alınıyor..."
+          sudo chown -R $USER:$USER nextcloud
+      
       - name: En Güncel Ayarları Çek
         uses: actions/checkout@v4
 
