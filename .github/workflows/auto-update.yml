@@ -2,54 +2,63 @@ name: Infrastructure Sync
 
 on:
   push:
-    branches: [ "cicd/autoupdate" ]
+    branches: [ "main" ]
     paths:
       - 'nginx/**'
       - 'pihole/**'
       - 'nextcloud/**'
       - 'management/**'
       - 'springproject/**'
-      - 'docker-compose.yml'
 
 jobs:
   apply-config:
     runs-on: self-hosted
     
     steps:
-      - name: 📥 En Güncel Ayarları Çek
+      - name: En Güncel Ayarları Çek
         uses: actions/checkout@v4
 
-      # 1. Management (Watchtower vb.)
-      - name: 🛠️ Management Servislerini Güncelle
+      # DÜZELTİLMİŞ KISIM BURASI
+      - name: Sırları Kasadan Getir
+        run: |
+          echo "Kalıcı .env dosyaları değişken üzerinden kopyalanıyor..."
+          
+          # ${{ vars.SECRETS_PATH }} GitHub'dan dinamik olarak gelir.
+          # Yarın klasör yolunu değiştirirsen, kodu değil GitHub'daki değişkeni güncellersin.
+          
+          cp ${{ vars.SECRETS_PATH }}/nextcloud.env nextcloud/.env || echo "Nextcloud env bulunamadı"
+          cp ${{ vars.SECRETS_PATH }}/nginx.env nginx/.env || echo "Nginx env bulunamadı"
+          cp ${{ vars.SECRETS_PATH }}/pihole.env pihole/.env || echo "Pihole env bulunamadı"
+          cp ${{ vars.SECRETS_PATH }}/spring.env springproject/.env || echo "Spring env bulunamadı"
+          
+          echo "✅ .env dosyaları yerleştirildi."
+
+      # ... Buradan sonrası aynı (docker compose adımları) ...
+      - name: Management Servislerini Güncelle
         run: |
           if [ -d "management" ]; then
             echo "Management konfigürasyonu uygulanıyor..."
             docker compose -f management/docker-compose.yml up -d --remove-orphans
           fi
 
-      # 2. Nginx (Proxy)
-      - name: 🌐 Nginx Ayarlarını Güncelle
+      - name: Nginx Ayarlarını Güncelle
         run: |
           echo "Nginx konfigürasyonu uygulanıyor..."
           docker compose -f nginx/docker-compose.yml up -d --remove-orphans
 
-      # 3. Pi-hole (DNS)
-      - name: 🛡️ Pi-hole Ayarlarını Güncelle
+      - name: Pi-hole Ayarlarını Güncelle
         run: |
           echo "Pi-hole konfigürasyonu uygulanıyor..."
           docker compose -f pihole/docker-compose.yml up -d --remove-orphans
 
-      # 4. Nextcloud
-      - name: ☁️ Nextcloud Ayarlarını Güncelle
+      - name: Nextcloud Ayarlarını Güncelle
         run: |
           echo "Nextcloud konfigürasyonu uygulanıyor..."
           docker compose -f nextcloud/docker-compose.yml up -d --remove-orphans
 
-      # 5. Spring Boot Projesi (YENİ EKLENEN ADIM)
-      - name: ☕ Spring Projesi Konfigürasyonunu Güncelle
+      - name: Spring Projesi Konfigürasyonunu Güncelle
         run: |
-          echo "Spring konfigürasyonu (Properties/Compose) uygulanıyor..."
-          # Imajı Watchtower güncellese bile, yeni port/env ayarlarını bu komut uygular.
+          echo "Spring konfigürasyonu uygulanıyor..."
           docker compose -f springproject/docker-compose.yml up -d --remove-orphans
 
       - name: 🧹 Temizlik
