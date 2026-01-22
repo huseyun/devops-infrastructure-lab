@@ -16,6 +16,7 @@ services:
       - "com.centurylinklabs.watchtower.enable=true"
     ports:
     # test comment for automated runner
+    # test comment for automated runner
       - "8080:8080"
     volumes:
       - ./application.properties:/app/application.properties
