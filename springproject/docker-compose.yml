@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+
+  app:
+    image: ghcr.io/huseyun/kulakliksatisapi:infrastructure-deployment
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./application.properties:/app/application.properties
+    environment:
+      DB_URL: ${DB_URL}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+    depends_on:
+      - db
