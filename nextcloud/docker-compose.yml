@@ -9,7 +9,8 @@ services:
       - /opt/docker-data/nextcloud/config:/var/www/html/config
       - nextcloud_apps:/var/www/html/custom_apps
       # baslangic programlari yukleme scripti.
-      - ./scripts/install-packages.sh:/docker-entrypoint-hooks.d/before-starting/install-packages.sh
+      - ./scripts/install-deps.sh:/install-deps.sh
+    entrypoint: /install-deps.sh
     environment:
       - POSTGRES_HOST=db
       - POSTGRES_USER=${DB_USER}
