@@ -1,6 +1,6 @@
 services:
   app:
-    image: nextcloud:latest
+    image: ghcr.io/huseyun/nextcloud-custom:latest
     restart: always
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
@@ -8,10 +8,6 @@ services:
       - /opt/docker-data/nextcloud/data:/var/www/html/data
       - /opt/docker-data/nextcloud/config:/var/www/html/config
       - nextcloud_apps:/var/www/html/custom_apps
-      # baslangic programlari yukleme scripti.
-      - ./scripts/install-packages.sh:/install-packages.sh
-    entrypoint: /install-packages.sh
-    command: apache2-foreground
     environment:
       - POSTGRES_HOST=db
       - POSTGRES_USER=${DB_USER}
