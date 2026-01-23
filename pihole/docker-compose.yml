@@ -29,7 +29,7 @@ services:
       FTLCONF_misc_etc_dnsmasq_d: 'true'
     volumes:
       # For persisting Pi-hole's databases and common configuration file
-      - ./etc-pihole:/etc/pihole
+      - /opt/docker-data/pihole/etc-pihole:/etc/pihole
 
       # baslangic scripti
       - ./scripts/custom-start.sh:/custom-start.sh
