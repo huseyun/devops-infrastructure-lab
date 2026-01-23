@@ -11,6 +11,7 @@ services:
       # baslangic programlari yukleme scripti.
       - ./scripts/install-packages.sh:/install-packages.sh
     entrypoint: /install-packages.sh
+    command: apache2-foreground
     environment:
       - POSTGRES_HOST=db
       - POSTGRES_USER=${DB_USER}
