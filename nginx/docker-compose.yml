@@ -2,8 +2,6 @@ services:
   nginx:
     image: nginx:1.29
     restart: always
-    labels:
-      - "com.centurylinklabs.watchtower.enable=true"
     ports:
       - "80:80"
     volumes:

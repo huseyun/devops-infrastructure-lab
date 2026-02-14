@@ -2,26 +2,22 @@ services:
   db:
     image: postgres:18
     restart: always
-    labels:
-      - "com.centurylinklabs.watchtower.enable=true"
     environment:
       - POSTGRES_USER=${DB_USERNAME}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=postgres
+      - POSTGRES_DB=${DB_NAME}
     ports:
       - "5432:5432"
 
   app:
     image: ghcr.io/huseyun/kulakliksatisapi:infrastructure-deployment
     restart: always
-    labels:
-      - "com.centurylinklabs.watchtower.enable=true"
     ports:
       - "8080:8080"
     volumes:
       - ./application.properties:/app/application.properties
     environment:
-      - DB_URL=${DB_URL}
+      - DB_URL=jdbc:postgresql://db:5432/${DB_NAME}
       - DB_USERNAME=${DB_USERNAME}
       - DB_PASSWORD=${DB_PASSWORD}
       - JWT_SECRET_KEY=${JWT_SECRET_KEY}
