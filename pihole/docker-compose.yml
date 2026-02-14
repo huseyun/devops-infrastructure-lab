@@ -2,7 +2,7 @@
 services:
   pihole:
     container_name: pihole
-    image: pihole/pihole:latest
+    image: pihole/pihole:2025.11.1
     restart: always
     labels:
       - "com.centurylinklabs.watchtower.enable=true" # <--- BU SATIR ŞART

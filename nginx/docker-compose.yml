@@ -1,6 +1,6 @@
 services:
   nginx:
-    image: nginx
+    image: nginx:1.29
     restart: always
     labels:
       - "com.centurylinklabs.watchtower.enable=true"

@@ -2,12 +2,10 @@ services:
   app:
     image: ghcr.io/huseyun/nextcloud-custom:latest
     restart: always
-    labels:
-      - "com.centurylinklabs.watchtower.enable=true"
     volumes:
-      - /opt/docker-data/nextcloud/data:/var/www/html/data
-      - /opt/docker-data/nextcloud/config:/var/www/html/config
-      - nextcloud_apps:/var/www/html/custom_apps
+      - ./data:/var/www/html/data
+      - ./config:/var/www/html/config
+      - apps:/var/www/html/custom_apps
     environment:
       - POSTGRES_HOST=db
       - POSTGRES_USER=${DB_USER}
@@ -24,38 +22,34 @@ services:
       - redis
     networks:
       - proxy-agi
-      - nextcloud-internal
+      - internal
 
   db:
     image: postgres:18
     restart: always
-    labels:
-      - "com.centurylinklabs.watchtower.enable=true"
     volumes:
-      - nextcloud_db:/var/lib/postgresql
+      - db:/var/lib/postgresql
     environment:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_NAME}
     networks:
-      - nextcloud-internal
+      - internal
 
   redis:
     image: redis:latest
     restart: always
-    labels:
-      - "com.centurylinklabs.watchtower.enable=true"
     networks:
-      - nextcloud-internal
+      - internal
 
 volumes:
-  nextcloud_apps:
-  nextcloud_db:
+  apps:
+  db:
 
 networks:
   proxy-agi:
     external: true
     name: nginx-main
 
-  nextcloud-internal:
+  internal:
     driver: bridge
