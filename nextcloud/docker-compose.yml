@@ -3,8 +3,8 @@ services:
     image: ghcr.io/huseyun/nextcloud-custom:latest
     restart: always
     volumes:
-      - ./data:/var/www/html/data
-      - ./config:/var/www/html/config
+      - ${DATA_LOCATION}:/var/www/html/data
+      - ${CONFIG_LOCATION}:/var/www/html/config
       - apps:/var/www/html/custom_apps
     environment:
       - POSTGRES_HOST=db
