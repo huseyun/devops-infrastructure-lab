@@ -43,6 +43,12 @@ jobs:
           echo "1. Tüm .sh scriptlerine çalıştırma izni veriliyor..."
           find . -name "*.sh" -exec chmod +x {} \;
 
+      - name: Ortak Docker Ağını Oluştur
+        run: |
+          # "home-network" adında bir ağ var mı kontrol et, yoksa oluştur.
+          docker network inspect nginx-main >/dev/null 2>&1 || \
+          docker network create nginx-main
+
       - name: Nginx Ayarlarını Güncelle
         run: |
           echo "Nginx konfigürasyonu uygulanıyor..."
