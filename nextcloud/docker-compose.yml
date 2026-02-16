@@ -27,7 +27,7 @@ services:
   cron:
     image: ghcr.io/huseyun/nextcloud-custom:latest
     restart: always
-    entrypoint: /cron.sh
+    command: /cron.sh
     volumes:
       - ${DATA_LOCATION}:/var/www/html/data
       - ${CONFIG_LOCATION}:/var/www/html/config
