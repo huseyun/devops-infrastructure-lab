@@ -3,6 +3,7 @@ services:
     image: ghcr.io/huseyun/nextcloud-custom:latest
     restart: always
     volumes:
+      - core:/var/www/html
       - ${DATA_LOCATION}:/var/www/html/data
       - ${CONFIG_LOCATION}:/var/www/html/config
       - apps:/var/www/html/custom_apps
@@ -29,6 +30,7 @@ services:
     restart: always
     command: /cron.sh
     volumes:
+      - core:/var/www/html
       - ${DATA_LOCATION}:/var/www/html/data
       - ${CONFIG_LOCATION}:/var/www/html/config
       - apps:/var/www/html/custom_apps
@@ -65,6 +67,7 @@ services:
 volumes:
   apps:
   db:
+  core:
 
 networks:
   proxy-agi:
