@@ -26,6 +26,26 @@ services:
       - proxy-agi
       - internal
 
+  cron:
+    image: ghcr.io/huseyun/nextcloud-custom:latest
+    restart: always
+    entrypoint: /cron.sh
+    volumes:
+      - ${DATA_LOCATION}:/var/www/html/data
+      - ${CONFIG_LOCATION}:/var/www/html/config
+      - apps:/var/www/html/custom_apps
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - REDIS_HOST=redis
+    depends_on:
+      - db
+      - redis
+    networks:
+      - internal
+
   db:
     image: postgres:18
     restart: always
