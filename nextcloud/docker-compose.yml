@@ -17,6 +17,8 @@ services:
       - OVERWRITEPROTOCOL=http
       - OVERWRITEHOST=nextcloud.${LOCAL_DOMAIN}
       - OVERWRITECLIURL=http://nextcloud.${LOCAL_DOMAIN}
+
+      - NEXTCLOUD_EXEC_CRON_PHP=true
     depends_on:
       - db
       - redis
