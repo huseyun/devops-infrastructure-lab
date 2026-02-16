@@ -52,22 +52,22 @@ jobs:
       - name: Nginx Ayarlarını Güncelle
         run: |
           echo "Nginx konfigürasyonu uygulanıyor..."
-          docker compose -f nginx/docker-compose.yml up -d --remove-orphans
+          docker compose -f nginx/docker-compose.yml up --force-recreate -d --remove-orphans
 
       - name: Pi-hole Ayarlarını Güncelle
         run: |
           echo "Pi-hole konfigürasyonu uygulanıyor..."
-          docker compose -f pihole/docker-compose.yml up -d --remove-orphans
+          docker compose -f pihole/docker-compose.yml up --force-recreate -d --remove-orphans
 
       - name: Nextcloud Ayarlarını Güncelle
         run: |
           echo "Nextcloud konfigürasyonu uygulanıyor..."
-          docker compose -f nextcloud/docker-compose.yml up -d --remove-orphans
+          docker compose -f nextcloud/docker-compose.yml up --force-recreate -d --remove-orphans
 
       - name: Spring Projesi Konfigürasyonunu Güncelle
         run: |
           echo "Spring konfigürasyonu uygulanıyor..."
-          docker compose -f springproject/docker-compose.yml up -d --remove-orphans
+          docker compose -f springproject/docker-compose.yml up --force-recreate -d --remove-orphans
 
       - name: Temizlik
         run: docker image prune -f
