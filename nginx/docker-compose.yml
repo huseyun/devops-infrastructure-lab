@@ -9,9 +9,9 @@ services:
     environment:
       - LOCAL_DOMAIN=${LOCAL_DOMAIN}
     networks:
-      - proxy-agim
+      - proxy-agi
 
 networks:
-  proxy-agim:
+  proxy-agi:
     external: true
     name: nginx-main
