@@ -40,7 +40,7 @@ services:
       - SYS_TIME
       - SYS_NICE
     networks:
-      - proxy-agim
+      - proxy-agi
       - dns-internal
     depends_on:
       - cloudflared
@@ -54,7 +54,7 @@ services:
       - dns-internal
 
 networks:
-  proxy-agim:
+  proxy-agi:
     external: true
     name: nginx-main
   dns-internal:
