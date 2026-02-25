@@ -1,0 +1,18 @@
+services:
+  portainer:
+    image: portainer/portainer-ce:2.38.1
+    container_name: portainer
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    networks:
+      - proxy-agi
+
+volumes:
+  portainer_data:
+
+networks:
+  proxy-agi:
+    external: true
+    name: nginx-main

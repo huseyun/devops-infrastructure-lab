@@ -15,6 +15,7 @@ on:
       - 'pihole/**'
       - 'nextcloud/**'
       - 'springproject/**'
+      - 'portainer/**'
       - '.github/workflows/**'
 
 jobs:
@@ -68,6 +69,11 @@ jobs:
         run: |
           echo "Spring konfigürasyonu uygulanıyor..."
           docker compose -f springproject/docker-compose.yml up --force-recreate -d --remove-orphans
+
+      - name: Portainer Konfigürasyonunu Güncelle
+        run: |
+          echo "Portainer konfigürasyonu uygulanıyor..."
+          docker compose -f portainer/docker-compose.yml up -d --remove-orphans
 
       - name: Temizlik
         run: docker image prune -f
