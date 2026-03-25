@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
   push:
-    branches: [ "main" ]
+    branches: [ "add/openuiweb" ]
     paths:
       - 'nginx/**'
       - 'pihole/**'
@@ -67,8 +67,8 @@ jobs:
 
       - name: Spring Projesi Konfigürasyonunu Güncelle
         run: |
-          echo "Spring konfigürasyonu uygulanıyor..."
-          docker compose -f springproject/docker-compose.yml up --force-recreate -d --remove-orphans
+          echo "Spring projesi üretime hazır olmadığı için kapatılıyor/kapalı tutuluyor..."
+          docker compose -f springproject/docker-compose.yml down
 
       - name: Portainer Konfigürasyonunu Güncelle
         run: |
