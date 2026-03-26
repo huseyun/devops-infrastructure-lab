@@ -1,18 +1,18 @@
 model_list:
-  - model_name: claude-opus-4.6
-    litellm_params:
-      model: anthropic/claude-opus-4-6
-      api_key: "os.environ/API_KEY"
-      api_base: "https://claudecode.codefast.app/v1"
-
-  - model_name: claude-opus-4.6-thinking
+  - model_name: "claude-4.6-opus-thinking"
     litellm_params:
       model: openai/claude-opus-4-6-thinking
       api_key: "os.environ/API_KEY"
-      api_base: "https://claudecode.codefast.app/v1"
+      api_base: "https://claudecode.codefast.app"
 
-  - model_name: claude-4.6-sonnet
+  - model_name: "claude-4.6-opus"
+    litellm_params:
+      model: openai/claude-opus-4-6
+      api_key: "os.environ/API_KEY"
+      api_base: "https://claudecode.codefast.app"
+
+  - model_name: "claude-4.6-sonnet"
     litellm_params:
       model: openai/claude-sonnet-4-6
       api_key: "os.environ/API_KEY"
-      api_base: "https://claudecode.codefast.app/v1"
+      api_base: "https://claudecode.codefast.app"
