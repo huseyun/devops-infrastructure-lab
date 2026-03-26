@@ -1,6 +1,7 @@
 services:
   app:
     image: ghcr.io/huseyun/nextcloud-custom:latest
+    container_name: nextcloud-app
     restart: always
     volumes:
       - core:/var/www/html
@@ -27,6 +28,7 @@ services:
 
   cron:
     image: ghcr.io/huseyun/nextcloud-custom:latest
+    container_name: nextcloud-cron-app
     restart: always
     command: /cron.sh
     volumes:
@@ -48,6 +50,7 @@ services:
 
   db:
     image: postgres:18
+    container_name: nextcloud-db
     restart: always
     volumes:
       - db:/var/lib/postgresql
