@@ -16,6 +16,7 @@ on:
       - 'nextcloud/**'
       - 'springproject/**'
       - 'portainer/**'
+      - 'open-webui/**'
       - '.github/workflows/**'
 
 jobs:
@@ -35,6 +36,7 @@ jobs:
           cp ${{ vars.SECRETS_PATH }}/nginx.env nginx/.env || echo "Nginx env bulunamadı"
           cp ${{ vars.SECRETS_PATH }}/pihole.env pihole/.env || echo "Pihole env bulunamadı"
           cp ${{ vars.SECRETS_PATH }}/spring.env springproject/.env || echo "Spring env bulunamadı"
+          cp ${{ vars.SECRETS_PATH }}/open-webui.env open-webui/.env || echo "Spring env bulunamadı"
           
           echo ".env dosyaları yerleştirildi."
 
@@ -74,6 +76,11 @@ jobs:
         run: |
           echo "Portainer konfigürasyonu uygulanıyor..."
           docker compose -f portainer/docker-compose.yml up --force-recreate -d --remove-orphans
+
+      - name: Open WebUI konfigürasyon güncellemesi
+        run: |
+          echo "Open WebUI konfigürasyonu uygulanıyor..."
+          docker compose -f open-webui/docker-compose.yml up --force-recreate -d --remove-orphans
 
       - name: Temizlik
         run: docker image prune -f
