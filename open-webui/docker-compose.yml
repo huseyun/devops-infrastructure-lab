@@ -14,6 +14,16 @@ services:
     networks:
       - internal
 
+  litellm:
+    image: ghcr.io/berriai/litellm:main-latest
+    container_name: litellm
+    restart: always
+    volumes:
+      - ./litellm-config.yaml:/app/config.yaml
+    command: [ "--config", "/app/config.yaml", "--port", "4000" ]
+    networks:
+      - internal
+
   app:
     image: ghcr.io/open-webui/open-webui:main
     container_name: open-webui-app
