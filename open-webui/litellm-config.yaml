@@ -19,13 +19,13 @@ model_list:
 
   - model_name: "claude-*" 
     litellm_params:
-      model: anthropic/* 
+      model: "openai/*" 
       api_key: "os.environ/API_KEY"
       api_base: "https://claudecode.codefast.app/v1"
 
   - model_name: "gemini-*"
     litellm_params:
-      model: gemini/*
+      model: "gemini/*"
       api_key: "os.environ/API_KEY"
       api_base: "https://api14.codefast.app/v1"
 
