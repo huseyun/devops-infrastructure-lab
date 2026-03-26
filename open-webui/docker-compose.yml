@@ -23,6 +23,8 @@ services:
     command: [ "--config", "/app/config.yaml", "--port", "4000" ]
     networks:
       - internal
+    environment:
+      - API_KEY=${API_KEY}
 
   app:
     image: ghcr.io/open-webui/open-webui:main
