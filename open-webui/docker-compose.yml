@@ -25,7 +25,6 @@ services:
       - internal
     environment:
       - API_KEY=${API_KEY}
-      - LITELLM_USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36"
 
   app:
     image: ghcr.io/open-webui/open-webui:main

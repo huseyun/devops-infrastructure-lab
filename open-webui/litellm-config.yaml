@@ -1,38 +1,18 @@
 model_list:
-  # - model_name: claude-opus-4.6
-  #   litellm_params:
-  #     model: anthropic/claude-opus-4-6
-  #     api_key: "os.environ/API_KEY"
-  #     api_base: "https://claudecode.codefast.app/v1"
-
-  # - model_name: claude-opus-4.6-thinking
-  #   litellm_params:
-  #     model: openai/claude-opus-4-6-thinking
-  #     api_key: "os.environ/API_KEY"
-  #     api_base: "https://claudecode.codefast.app/v1"
-
-  # - model_name: claude-4.6-sonnet
-  #   litellm_params:
-  #     model: openai/claude-sonnet-4-6
-  #     api_key: "os.environ/API_KEY"
-  #     api_base: "https://claudecode.codefast.app/v1",,
-
-  - model_name: "claude/*" 
+  - model_name: claude-opus-4.6
     litellm_params:
-      model: "openai/*" 
+      model: anthropic/claude-opus-4-6
       api_key: "os.environ/API_KEY"
       api_base: "https://claudecode.codefast.app/v1"
-      # Cloudflare'i atlatmak için kılık değiştiriyoruz (Browser taklidi)
-      client_type: "curl_cffi" 
-      impersonate: "chrome110"
 
-  - model_name: "gemini/*"
+  - model_name: claude-opus-4.6-thinking
     litellm_params:
-      model: "gemini/*"
+      model: openai/claude-opus-4-6-thinking
       api_key: "os.environ/API_KEY"
-      api_base: "https://api14.codefast.app/v1"
-      client_type: "curl_cffi"
-      impersonate: "chrome110"
+      api_base: "https://claudecode.codefast.app/v1"
 
-litellm_settings:
-  check_provider_endpoint: true # Modelleri çekmesi için tekrar açtık
+  - model_name: claude-4.6-sonnet
+    litellm_params:
+      model: openai/claude-sonnet-4-6
+      api_key: "os.environ/API_KEY"
+      api_base: "https://claudecode.codefast.app/v1"
