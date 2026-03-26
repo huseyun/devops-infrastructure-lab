@@ -11,6 +11,8 @@ services:
       - POSTGRES_DB=${DB_NAME}
     volumes:
       - db-data:/var/lib/postgresql/data
+    networks:
+      - internal
 
   app:
     image: ghcr.io/open-webui/open-webui:main
@@ -26,9 +28,21 @@ services:
       - db
     volumes:
       - data:/app/backend/data
+    networks:
+      - proxy-agi
+      - internal
+      
 
 volumes:
   db-data:
     name: open-webui-db-data
   data:
     name: open-webui-data
+
+networks:
+  proxy-agi:
+    external: true
+    name: nginx-main
+
+  internal:
+    driver: bridge
