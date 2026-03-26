@@ -1,12 +1,6 @@
 model_list:
   - model_name: claude-opus-4.6
     litellm_params:
-      model: anthropic/claude-3-5-opus-latest # Burası LiteLLM'in iç ismi
+      model: anthropic/claude-opus-4-6 # Burası LiteLLM'in iç ismi
       api_key: "os.environ/API_KEY"
       api_base: "https://claudecode.codefast.app" # API 7 Adresi
-
-  - model_name: claude-sonnet-3.5
-    litellm_params:
-      model: anthropic/claude-3-5-sonnet-latest
-      api_key: "os.environ/API_KEY"
-      api_base: "https://claudecode.codefast.app"
