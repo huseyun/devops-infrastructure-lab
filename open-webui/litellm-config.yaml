@@ -15,15 +15,19 @@ model_list:
   #   litellm_params:
   #     model: openai/claude-sonnet-4-6
   #     api_key: "os.environ/API_KEY"
-  #     api_base: "https://claudecode.codefast.app/v1"
-  - model_name: "claude-*" # Joker karakter: Bütün modelleri kapsar
+  #     api_base: "https://claudecode.codefast.app/v1",,
+
+  - model_name: "claude-*" 
     litellm_params:
-      model: anthropic/* # Gelen model ismini olduğu gibi API'ye ilet
+      model: anthropic/* 
       api_key: "os.environ/API_KEY"
       api_base: "https://claudecode.codefast.app/v1"
 
-  - model_name: "gemini-*" # Joker karakter: Bütün modelleri kapsar
+  - model_name: "gemini-*"
     litellm_params:
-      model: gemini/* # Gelen model ismini olduğu gibi API'ye ilet
+      model: gemini/*
       api_key: "os.environ/API_KEY"
       api_base: "https://api14.codefast.app/v1"
+
+litellm_settings:
+  check_provider_endpoint: true
