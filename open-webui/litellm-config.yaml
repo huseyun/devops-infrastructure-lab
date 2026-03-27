@@ -29,13 +29,6 @@ model_list:
       api_key: "os.environ/API_KEY"
       api_base: "https://api13.codefast.app/v1"
 
-  - model_name: "claude-4.6-opus:1m"
-    litellm_params:
-      model: anthropic/claude-opus-4-6:1m
-      api_key: "os.environ/API_KEY"
-      api_base: "https://claudecode.codefast.app"
-
-
 
 litellm_settings:
   check_provider_endpoint: false # Cloudflare ile tamamen bağımızı kopardık
