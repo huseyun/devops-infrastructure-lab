@@ -13,6 +13,10 @@ services:
       - db-data:/var/lib/postgresql/data
     networks:
       - internal
+    deploy:
+      resources:
+        limits:
+          memory: 300M # Kısıtlı RAM'ini korumak için sınırlama
 
   litellm:
     image: ghcr.io/berriai/litellm:main-latest
@@ -25,6 +29,10 @@ services:
       - internal
     environment:
       - API_KEY=${API_KEY}
+    deploy:
+      resources:
+        limits:
+          memory: 256M
 
   app:
     image: ghcr.io/open-webui/open-webui:main
