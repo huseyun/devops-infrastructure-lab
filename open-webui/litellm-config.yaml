@@ -1,34 +1,41 @@
 model_list:
-  - model_name: "claude-4.6-opus-thinking"
+#   - model_name: "claude-4.6-opus-thinking"
+#     litellm_params:
+#       model: anthropic/claude-opus-4-6-thinking
+#       api_key: "os.environ/API_KEY"
+#       api_base: "https://claudecode.codefast.app"
+
+#   - model_name: "claude-4.6-opus"
+#     litellm_params:
+#       model: anthropic/claude-opus-4-6
+#       api_key: "os.environ/API_KEY"
+#       api_base: "https://claudecode.codefast.app"
+
+#   - model_name: "claude-4.6-sonnet"
+#     litellm_params:
+#       model: anthropic/claude-sonnet-4-6
+#       api_key: "os.environ/API_KEY"
+#       api_base: "https://claudecode.codefast.app"
+
+#   - model_name: "gemini-3.1-pro"
+#     litellm_params:
+#       model: gemini/gemini-3.1-pro
+#       api_key: "os.environ/API_KEY"
+#       api_base: "https://api14.codefast.app"
+
+#   - model_name: "openai-o3"
+#     litellm_params:
+#       model: openai/o3-2025-04-16
+#       api_key: "os.environ/API_KEY"
+#       api_base: "https://api13.codefast.app/v1"
+
+
+# litellm_settings:
+#   check_provider_endpoint: false # Cloudflare ile tamamen bağımızı kopardık
+
+  - model_name: "claude-4.6-opus-1m-yuxor"   # Open WebUI'da göreceğin isim (İstediğini yazabilirsin)
     litellm_params:
-      model: anthropic/claude-opus-4-6-thinking
+      model: anthropic/claude-opus-4-6:1m       # Arkadaşından aldığın o KESİN ŞİFRE (Başına openai/ koyduk)
       api_key: "os.environ/API_KEY"
-      api_base: "https://claudecode.codefast.app"
-
-  - model_name: "claude-4.6-opus"
-    litellm_params:
-      model: anthropic/claude-opus-4-6
-      api_key: "os.environ/API_KEY"
-      api_base: "https://claudecode.codefast.app"
-
-  - model_name: "claude-4.6-sonnet"
-    litellm_params:
-      model: anthropic/claude-sonnet-4-6
-      api_key: "os.environ/API_KEY"
-      api_base: "https://claudecode.codefast.app"
-
-  - model_name: "gemini-3.1-pro"
-    litellm_params:
-      model: gemini/gemini-3.1-pro
-      api_key: "os.environ/API_KEY"
-      api_base: "https://api14.codefast.app"
-
-  - model_name: "openai-o3"
-    litellm_params:
-      model: openai/o3-2025-04-16
-      api_key: "os.environ/API_KEY"
-      api_base: "https://api13.codefast.app/v1"
-
-
-litellm_settings:
-  check_provider_endpoint: false # Cloudflare ile tamamen bağımızı kopardık
+      api_base: "https://api.yuxor.tech"  # "api2" değil "api" olan ana sunucu
+      stream: true                           # Arka planda Yuxor'un çökmemesini garanti eden satır
