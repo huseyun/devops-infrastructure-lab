@@ -17,17 +17,17 @@ model_list:
       api_key: "os.environ/API_KEY"
       api_base: "https://claudecode.codefast.app"
 
-  - model_name: "gemini-3.1-pro"
-    litellm_params:
-      model: gemini/gemini-3.1-pro
-      api_key: "os.environ/API_KEY"
-      api_base: "https://api14.codefast.app"
+  # - model_name: "gemini-3.1-pro"
+  #   litellm_params:
+  #     model: gemini/gemini-3.1-pro
+  #     api_key: "os.environ/API_KEY"
+  #     api_base: "https://api14.codefast.app"
 
-  - model_name: "openai-o3"
-    litellm_params:
-      model: openai/o3-2025-04-16
-      api_key: "os.environ/API_KEY"
-      api_base: "https://api13.codefast.app/v1"
+  # - model_name: "openai-o3"
+  #   litellm_params:
+  #     model: openai/o3-2025-04-16
+  #     api_key: "os.environ/API_KEY"
+  #     api_base: "https://api13.codefast.app/v1"
 
 
 litellm_settings:
