@@ -13,10 +13,6 @@ services:
       - db-data:/var/lib/postgresql/data
     networks:
       - internal
-    deploy:
-      resources:
-        limits:
-          memory: 300M # Kısıtlı RAM'ini korumak için sınırlama
 
   litellm:
     image: ghcr.io/berriai/litellm:main-latest
