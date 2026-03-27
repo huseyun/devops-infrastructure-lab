@@ -34,10 +34,22 @@ model_list:
 # litellm_settings:
 #   check_provider_endpoint: false # Cloudflare ile tamamen bağımızı kopardık
 
-  - model_name: "claude-4.6-opus-yuxor"
+  - model_name: "claude-opus-4-6:1m"
     litellm_params:
       model: anthropic/claude-opus-4-6  
       api_key: "os.environ/API_KEY"
       api_base: "https://api.yuxor.tech"
       stream: true
       max_input_tokens: 1000000
+
+  - model_name: "claude-opus-4-6-thinking"
+    litellm_params:
+      model: anthropic/claude-opus-4-6
+      api_key: os.environ/API_KEY
+
+  - model_name: "claude-opus-4-6"
+    litellm_params:
+      model: anthropic/claude-opus-4-6  
+      api_key: "os.environ/API_KEY"
+      api_base: "https://api.yuxor.tech"
+      stream: true
