@@ -45,7 +45,7 @@ model_list:
   - model_name: "claude-opus-4-6-thinking"
     litellm_params:
       model: anthropic/claude-opus-4-6
-      api_key: os.environ/API_KEY
+      api_key: "os.environ/API_KEY"
 
   - model_name: "claude-opus-4-6"
     litellm_params:
