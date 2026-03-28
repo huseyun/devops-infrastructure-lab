@@ -12,8 +12,9 @@ model_list:
       model: anthropic/claude-opus-4-6
       api_key: "os.environ/API_KEY"
       api_base: "https://api.yuxor.tech"
-      thinking: true
-      thinking_budget: 20000
+      thinking:
+        type: "enabled"
+        budget_tokens: 20000
 
   - model_name: "claude-opus-4-6"
     litellm_params:
