@@ -44,6 +44,14 @@ services:
       - proxy-agi
       - internal
       
+  searxng:
+    image: searxng/searxng:latest
+    container_name: searxng
+    restart: always
+    volumes:
+      - ./searxng-settings.yml:/etc/searxng/settings.yml:ro
+    networks:
+      - internal
 
 volumes:
   db-data:
