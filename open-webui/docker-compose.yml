@@ -36,6 +36,10 @@ services:
       - WEBUI_SECRET_KEY=${WEBUI_SECRET_KEY}
       
       # - ENABLE_SIGNUP=false 
+
+      - ENABLE_RAG_WEB_SEARCH=true
+      - WEB_SEARCH_ENGINE=searxng
+      - SEARXNG_QUERY_URL=http://searxng:8080/search?q=<query>
     depends_on:
       - db
     volumes:
