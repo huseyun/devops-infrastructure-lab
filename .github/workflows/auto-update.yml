@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
   push:
-    branches: [ "main" ]
+    branches: [ "add/teamspeak" ]
     paths:
       - 'nginx/**'
       - 'pihole/**'
@@ -18,6 +18,7 @@ on:
       - 'portainer/**'
       - 'open-webui/**'
       - '.github/workflows/**'
+      - 'teamspeak/**'
 
 jobs:
   apply-config:
@@ -39,6 +40,7 @@ jobs:
             spring: 'springproject/**'
             portainer: 'portainer/**'
             openwebui: 'open-webui/**'
+            teamspeak: 'teamspeak/**'
             workflow: '.github/workflows/**'
 
       - name: Sırları Kasadan Getir
@@ -50,6 +52,7 @@ jobs:
           cp ${{ vars.SECRETS_PATH }}/pihole.env pihole/.env || echo "Pihole env bulunamadı"
           cp ${{ vars.SECRETS_PATH }}/spring.env springproject/.env || echo "Spring env bulunamadı"
           cp ${{ vars.SECRETS_PATH }}/open-webui.env open-webui/.env || echo "Spring env bulunamadı"
+          cp ${{ vars.SECRETS_PATH }}/teamspeak.env teamspeak/.env || echo "Teamspeak env bulunamadı"
           
           echo ".env dosyaları yerleştirildi."
 
@@ -100,6 +103,12 @@ jobs:
         run: |
           echo "Open WebUI konfigürasyonu uygulanıyor..."
           docker compose -f open-webui/docker-compose.yml up --force-recreate -d --remove-orphans
+
+      - name: TeamSpeak konfigürasyon güncellemesi
+        if: steps.filter.outputs.teamspeak == 'true' || steps.filter.outputs.workflow == 'true'
+        run: |
+          echo "TeamSpeak konfigürasyonu uygulanıyor..."
+          docker compose -f teamspeak/docker-compose.yml up --force-recreate -d --remove-orphans
 
       - name: Temizlik
         run: docker image prune -f
