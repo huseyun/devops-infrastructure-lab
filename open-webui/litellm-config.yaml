@@ -1,0 +1,34 @@
+model_list:
+  - model_name: "claude-opus-4-6:1m"
+    litellm_params:
+      model: anthropic/claude-opus-4-6  
+      api_key: "os.environ/API_KEY"
+      api_base: "https://api.yuxor.tech"
+      stream: true
+      max_input_tokens: 1000000
+
+  - model_name: "claude-opus-4-6-thinking"
+    litellm_params:
+      model: anthropic/claude-opus-4-6
+      api_key: "os.environ/API_KEY"
+      api_base: "https://api.yuxor.tech"
+      thinking:
+        type: "enabled"
+        budget_tokens: 20000
+
+  - model_name: "claude-opus-4-6"
+    litellm_params:
+      model: anthropic/claude-opus-4-6  
+      api_key: "os.environ/API_KEY"
+      api_base: "https://api.yuxor.tech"
+      stream: true
+
+  - model_name: "claude-opus-4-6-thinking:1m"
+    litellm_params:
+      model: anthropic/claude-opus-4-6
+      api_key: "os.environ/API_KEY"
+      api_base: "https://api.yuxor.tech"
+      max_input_tokens: 1000000
+      thinking:
+        type: "enabled"
+        budget_tokens: 20000

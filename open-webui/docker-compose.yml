@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: open-webui-db
+    restart: always
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - internal
+
+  litellm:
+    image: ghcr.io/berriai/litellm:main-latest
+    container_name: litellm
+    restart: always
+    volumes:
+      - ./litellm-config.yaml:/app/config.yaml
+    command: [ "--config", "/app/config.yaml", "--port", "4000" ]
+    networks:
+      - internal
+    environment:
+      - API_KEY=${API_KEY}
+
+  app:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui-app
+    restart: always
+    environment:
+      - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}
+      - OLLAMA_BASE_URL="" # yerel aramayı kapatır
+      - WEBUI_SECRET_KEY=${WEBUI_SECRET_KEY}
+      
+      # - ENABLE_SIGNUP=false 
+
+      - ENABLE_RAG_WEB_SEARCH=true
+      - WEB_SEARCH_ENGINE=searxng
+      - SEARXNG_QUERY_URL=http://searxng:8080/search?q=<query>
+    depends_on:
+      - db
+    volumes:
+      - data:/app/backend/data
+    networks:
+      - proxy-agi
+      - internal
+      
+  searxng:
+    image: searxng/searxng:latest
+    container_name: searxng
+    restart: always
+    volumes:
+      - ./searxng-settings.yml:/etc/searxng/settings.yml:ro
+    networks:
+      - internal
+
+volumes:
+  db-data:
+    name: open-webui-db-data
+  data:
+    name: open-webui-data
+
+networks:
+  proxy-agi:
+    external: true
+    name: nginx-main
+
+  internal:
+    driver: bridge

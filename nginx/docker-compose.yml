@@ -1,6 +1,7 @@
 services:
   nginx:
     image: nginx:1.29
+    container_name: nginx-app
     restart: always
     ports:
       - "80:80"

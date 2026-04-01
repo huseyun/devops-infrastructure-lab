@@ -1,16 +1,17 @@
 services:
   portainer:
     image: portainer/portainer-ce:2.38.1
-    container_name: portainer
+    container_name: portainer-app
     restart: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - portainer_data:/data
+      - app-data:/data
     networks:
       - proxy-agi
 
 volumes:
-  portainer_data:
+  app-data:
+    name: portainer-app-data
 
 networks:
   proxy-agi:
