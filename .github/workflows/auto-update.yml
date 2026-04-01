@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
   push:
-    branches: [ "add/openuiweb" ]
+    branches: [ "main" ]
     paths:
       - 'nginx/**'
       - 'pihole/**'
