@@ -27,7 +27,7 @@ services:
       db:
         condition: service_started
       elasticsearch:
-        condition: service_started
+        condition: service_healthy
     networks:
       - proxy-agi
       - internal
@@ -43,6 +43,11 @@ services:
       - es_data:/usr/share/elasticsearch/data # Konteyner kapandığında indeksler silinmesin diye
     networks:
       - internal
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s http://localhost:9200 >/dev/null || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
 
 volumes:
   es_data:
