@@ -68,44 +68,44 @@ jobs:
           docker network create nginx-main
 
       - name: Nginx Ayarlarını Güncelle
-        if: steps.filter.outputs.nginx == 'true' || steps.filter.outputs.workflow == 'true'
+        if: steps.filter.outputs.nginx == 'true' # || steps.filter.outputs.workflow == 'true'
         run: |
           echo "Nginx konfigürasyonu uygulanıyor..."
           docker compose -f nginx/docker-compose.yml up --force-recreate -d --remove-orphans
 
       - name: Pi-hole Ayarlarını Güncelle
-        if: steps.filter.outputs.pihole == 'true' || steps.filter.outputs.workflow == 'true'
+        if: steps.filter.outputs.pihole == 'true' # || steps.filter.outputs.workflow == 'true'
         run: |
           echo "Pi-hole konfigürasyonu uygulanıyor..."
           docker compose -f pihole/docker-compose.yml up --force-recreate -d --remove-orphans
 
       - name: Nextcloud Ayarlarını Güncelle
-        if: steps.filter.outputs.nextcloud == 'true' || steps.filter.outputs.workflow == 'true'
+        if: steps.filter.outputs.nextcloud == 'true' # || steps.filter.outputs.workflow == 'true'
         run: |
           echo "Nextcloud konfigürasyonu uygulanıyor..."
           docker compose -f nextcloud/docker-compose.yml pull
           docker compose -f nextcloud/docker-compose.yml up --force-recreate -d --remove-orphans
 
       - name: Spring Projesi Konfigürasyonunu Güncelle
-        if: steps.filter.outputs.spring == 'true' || steps.filter.outputs.workflow == 'true'
+        if: steps.filter.outputs.spring == 'true' # || steps.filter.outputs.workflow == 'true'
         run: |
           echo "Spring projesi üretime hazır olmadığı için kapatılıyor/kapalı tutuluyor..."
           docker compose -f springproject/docker-compose.yml down
 
       - name: Portainer Konfigürasyonunu Güncelle
-        if: steps.filter.outputs.portainer == 'true' || steps.filter.outputs.workflow == 'true'
+        if: steps.filter.outputs.portainer == 'true' # || steps.filter.outputs.workflow == 'true'
         run: |
           echo "Portainer konfigürasyonu uygulanıyor..."
           docker compose -f portainer/docker-compose.yml up --force-recreate -d --remove-orphans
 
       - name: Open WebUI konfigürasyon güncellemesi
-        if: steps.filter.outputs.openwebui == 'true' || steps.filter.outputs.workflow == 'true'
+        if: steps.filter.outputs.openwebui == 'true' # || steps.filter.outputs.workflow == 'true'
         run: |
           echo "Open WebUI konfigürasyonu uygulanıyor..."
           docker compose -f open-webui/docker-compose.yml up --force-recreate -d --remove-orphans
 
       - name: TeamSpeak konfigürasyon güncellemesi
-        if: steps.filter.outputs.teamspeak == 'true' || steps.filter.outputs.workflow == 'true'
+        if: steps.filter.outputs.teamspeak == 'true' # || steps.filter.outputs.workflow == 'true'
         run: |
           echo "TeamSpeak konfigürasyonu uygulanıyor..."
           docker compose -f teamspeak/docker-compose.yml up --force-recreate -d --remove-orphans
