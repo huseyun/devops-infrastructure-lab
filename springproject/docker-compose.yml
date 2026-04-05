@@ -14,8 +14,6 @@ services:
     image: ghcr.io/huseyun/kulakliksatisapi:master
     container_name: springproject-backend
     restart: always
-    ports:
-      - "8080:8080"
     volumes:
       - ./application.properties:/app/application.properties
     environment:
@@ -27,6 +25,20 @@ services:
       - db
     networks:
       - proxy-agi
+      - internal
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.12.2
+    container_name: kulaklik-elasticsearch
+    environment:
+      - discovery.type=single-node # Cluster kurmuyoruz, tekil node olarak çalışacak
+      - xpack.security.enabled=false # Lokal ortamda şifre/HTTPS ile uğraşmamak için güvenliği kapatıyoruz
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g" # Elasticsearch'e 1GB RAM ayırıyoruz
+    ports:
+      - "9200:9200" # Spring Boot'un bağlanacağı port
+    volumes:
+      - es_data:/usr/share/elasticsearch/data # Konteyner kapandığında indeksler silinmesin diye
+    networks:
       - internal
 
 networks:
