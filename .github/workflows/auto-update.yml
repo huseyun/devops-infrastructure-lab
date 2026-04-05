@@ -42,7 +42,7 @@ jobs:
             portainer: 'portainer/**'
             openwebui: 'open-webui/**'
             teamspeak: 'teamspeak/**'
-            frontend: 'frontend/**'
+            frontend: 'springproject-frontend/**'
             workflow: '.github/workflows/**'
 
       - name: Sırları Kasadan Getir
@@ -117,8 +117,8 @@ jobs:
         if: steps.filter.outputs.frontend == 'true' || steps.filter.outputs.workflow == 'true'
         run: |
           echo "Frontend projesi konfigürasyonu uygulanıyor..."
-          docker compose -f frontend/docker-compose.yml pull
-          docker compose -f frontend/docker-compose.yml up --force-recreate -d --remove-orphans
+          docker compose -f springproject-frontend/docker-compose.yml pull
+          docker compose -f springproject-frontend/docker-compose.yml up --force-recreate -d --remove-orphans
 
       - name: Temizlik
         run: docker image prune -f
