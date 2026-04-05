@@ -1,0 +1,17 @@
+services:
+  teamspeak:
+    image: teamspeak:3.13
+    container_name: teamspeak-app
+    restart: always
+    environment:
+      - TS3SERVER_LICENSE=accept
+    ports:
+      - "${LOCAL_TAILSCALE_IP}:9987:9987/udp"
+      - "${LOCAL_TAILSCALE_IP}:30033:30033/tcp"
+      - "${LOCAL_TAILSCALE_IP}:10011:10011/tcp"
+    volumes:
+      - ts-data:/var/ts3server/
+
+volumes:
+  ts-data:
+    name: teamspeak-app-data
