@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
   push:
-    branches: [ "add/teamspeak" ]
+    branches: [ "main" ]
     paths:
       - 'nginx/**'
       - 'pihole/**'
