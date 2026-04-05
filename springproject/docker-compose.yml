@@ -11,7 +11,7 @@ services:
       - internal
 
   app:
-    image: ghcr.io/huseyun/kulakliksatisapi:infrastructure-deployment
+    image: ghcr.io/huseyun/kulakliksatisapi:master
     container_name: springproject-backend
     restart: always
     ports:
