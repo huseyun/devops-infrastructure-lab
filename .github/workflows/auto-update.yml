@@ -19,6 +19,7 @@ on:
       - 'open-webui/**'
       - '.github/workflows/**'
       - 'teamspeak/**'
+      - 'springproject-frontend/**'
 
 jobs:
   apply-config:
@@ -41,6 +42,7 @@ jobs:
             portainer: 'portainer/**'
             openwebui: 'open-webui/**'
             teamspeak: 'teamspeak/**'
+            frontend: 'frontend/**'
             workflow: '.github/workflows/**'
 
       - name: Sırları Kasadan Getir
@@ -110,6 +112,13 @@ jobs:
         run: |
           echo "TeamSpeak konfigürasyonu uygulanıyor..."
           docker compose -f teamspeak/docker-compose.yml up --force-recreate -d --remove-orphans
+
+      - name: Frontend Projesi Konfigürasyonunu Güncelle
+        if: steps.filter.outputs.frontend == 'true' || steps.filter.outputs.workflow == 'true'
+        run: |
+          echo "Frontend projesi konfigürasyonu uygulanıyor..."
+          docker compose -f frontend/docker-compose.yml pull
+          docker compose -f frontend/docker-compose.yml up --force-recreate -d --remove-orphans
 
       - name: Temizlik
         run: docker image prune -f

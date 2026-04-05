@@ -1,0 +1,12 @@
+services:
+  app:
+    image: ghcr.io/huseyun/kulakliksatisfrontend:latest
+    container_name: frontend-app
+    restart: always
+    networks:
+      - proxy-agi
+
+networks:
+  proxy-agi:
+    external: true
+    name: nginx-main
