@@ -1,16 +1,18 @@
 services:
   db:
     image: postgres:18
+    container_name: springproject-db
     restart: always
     environment:
       - POSTGRES_USER=${DB_USERNAME}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_NAME}
-    ports:
-      - "5432:5432"
+    networks:
+      - internal
 
   app:
     image: ghcr.io/huseyun/kulakliksatisapi:infrastructure-deployment
+    container_name: springproject-backend
     restart: always
     ports:
       - "8080:8080"
@@ -23,3 +25,13 @@ services:
       - JWT_SECRET_KEY=${JWT_SECRET_KEY}
     depends_on:
       - db
+    networks:
+      - proxy-agi
+      - internal
+
+networks:
+  proxy-agi:
+    external: true
+    name: nginx-main
+  internal:
+    driver: bridge

@@ -89,8 +89,9 @@ jobs:
       - name: Spring Projesi Konfigürasyonunu Güncelle
         if: steps.filter.outputs.spring == 'true' # || steps.filter.outputs.workflow == 'true'
         run: |
-          echo "Spring projesi üretime hazır olmadığı için kapatılıyor/kapalı tutuluyor..."
-          docker compose -f springproject/docker-compose.yml down
+          echo "Spring projesi konfigürasyonu uygulanıyor..."
+          docker compose -f springproject/docker-compose.yml pull
+          docker compose -f springproject/docker-compose.yml up --force-recreate -d --remove-orphans
 
       - name: Portainer Konfigürasyonunu Güncelle
         if: steps.filter.outputs.portainer == 'true' # || steps.filter.outputs.workflow == 'true'

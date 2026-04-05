@@ -66,3 +66,19 @@ server {
         client_max_body_size 50M;
     }
 }
+
+server {
+    listen 80;
+    resolver 127.0.0.11;
+    server_name api.famanas.xyz;
+
+    location / {
+        # İstekleri spring-app ismindeki konteynerin 8080 portuna gönderiyoruz
+        proxy_pass http://springproject-backend:8080;
+        
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
