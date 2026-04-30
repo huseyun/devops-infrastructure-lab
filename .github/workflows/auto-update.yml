@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
   push:
-    branches: [ "main" ]
+    branches: [ "add/springproject" ]
     paths:
       - 'nginx/**'
       - 'pihole/**'
@@ -19,6 +19,7 @@ on:
       - 'open-webui/**'
       - '.github/workflows/**'
       - 'teamspeak/**'
+      - 'springproject-frontend/**'
 
 jobs:
   apply-config:
@@ -41,6 +42,7 @@ jobs:
             portainer: 'portainer/**'
             openwebui: 'open-webui/**'
             teamspeak: 'teamspeak/**'
+            frontend: 'springproject-frontend/**'
             workflow: '.github/workflows/**'
 
       - name: Sırları Kasadan Getir
@@ -89,7 +91,7 @@ jobs:
       - name: Spring Projesi Konfigürasyonunu Güncelle
         if: steps.filter.outputs.spring == 'true' # || steps.filter.outputs.workflow == 'true'
         run: |
-          echo "Spring projesi üretime hazır olmadığı için kapatılıyor/kapalı tutuluyor..."
+          echo "Spring projesi konfigürasyonu(şimdilik iptal)"
           docker compose -f springproject/docker-compose.yml down
 
       - name: Portainer Konfigürasyonunu Güncelle

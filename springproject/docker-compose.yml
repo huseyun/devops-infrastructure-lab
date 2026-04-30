@@ -1,19 +1,23 @@
 services:
   db:
     image: postgres:18
+    container_name: springproject-db
     restart: always
     environment:
       - POSTGRES_USER=${DB_USERNAME}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - db:/var/lib/postgresql
     ports:
-      - "5432:5432"
+      - 5432:5432
+    networks:
+      - internal
 
   app:
-    image: ghcr.io/huseyun/kulakliksatisapi:infrastructure-deployment
+    image: ghcr.io/huseyun/kulakliksatisapi:master
+    container_name: springproject-backend
     restart: always
-    ports:
-      - "8080:8080"
     volumes:
       - ./application.properties:/app/application.properties
     environment:
@@ -22,4 +26,39 @@ services:
       - DB_PASSWORD=${DB_PASSWORD}
       - JWT_SECRET_KEY=${JWT_SECRET_KEY}
     depends_on:
-      - db
+      db:
+        condition: service_started
+      elasticsearch:
+        condition: service_healthy
+    networks:
+      - proxy-agi
+      - internal
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.12.2
+    container_name: elastisearch-app
+    environment:
+      - discovery.type=single-node # Cluster kurmuyoruz, tekil node olarak çalışacak
+      - xpack.security.enabled=false # Lokal ortamda şifre/HTTPS ile uğraşmamak için güvenliği kapatıyoruz
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g" # Elasticsearch'e 1GB RAM ayırıyoruz
+    volumes:
+      - es_data:/usr/share/elasticsearch/data # Konteyner kapandığında indeksler silinmesin diye
+    networks:
+      - internal
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s http://localhost:9200 >/dev/null || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  es_data:
+    driver: local
+  db:
+
+networks:
+  proxy-agi:
+    external: true
+    name: nginx-main
+  internal:
+    driver: bridge
