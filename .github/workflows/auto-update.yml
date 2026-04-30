@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
   push:
-    branches: [ "add/springproject" ]
+    branches: [ "main" ]
     paths:
       - 'nginx/**'
       - 'pihole/**'
@@ -19,7 +19,6 @@ on:
       - 'open-webui/**'
       - '.github/workflows/**'
       - 'teamspeak/**'
-      - 'springproject-frontend/**'
 
 jobs:
   apply-config:
@@ -42,7 +41,6 @@ jobs:
             portainer: 'portainer/**'
             openwebui: 'open-webui/**'
             teamspeak: 'teamspeak/**'
-            frontend: 'springproject-frontend/**'
             workflow: '.github/workflows/**'
 
       - name: Sırları Kasadan Getir
