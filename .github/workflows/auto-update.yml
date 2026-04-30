@@ -91,9 +91,8 @@ jobs:
       - name: Spring Projesi Konfigürasyonunu Güncelle
         if: steps.filter.outputs.spring == 'true' # || steps.filter.outputs.workflow == 'true'
         run: |
-          echo "Spring projesi konfigürasyonu uygulanıyor..."
-          docker compose -f springproject/docker-compose.yml pull
-          docker compose -f springproject/docker-compose.yml up --force-recreate -d --remove-orphans
+          echo "Spring projesi konfigürasyonu(şimdilik iptal)"
+          docker compose -f springproject/docker-compose.yml down
 
       - name: Portainer Konfigürasyonunu Güncelle
         if: steps.filter.outputs.portainer == 'true' # || steps.filter.outputs.workflow == 'true'
@@ -112,13 +111,6 @@ jobs:
         run: |
           echo "TeamSpeak konfigürasyonu uygulanıyor..."
           docker compose -f teamspeak/docker-compose.yml up --force-recreate -d --remove-orphans
-
-      - name: Frontend Projesi Konfigürasyonunu Güncelle
-        if: steps.filter.outputs.frontend == 'true' || steps.filter.outputs.workflow == 'true'
-        run: |
-          echo "Frontend projesi konfigürasyonu uygulanıyor..."
-          docker compose -f springproject-frontend/docker-compose.yml pull
-          docker compose -f springproject-frontend/docker-compose.yml up --force-recreate -d --remove-orphans
 
       - name: Temizlik
         run: docker image prune -f
