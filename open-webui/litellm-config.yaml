@@ -12,9 +12,10 @@ model_list:
       model: openai/claude-opus-4-6
       api_key: "os.environ/API_KEY"
       api_base: "https://api.yuxor.tech/v1"
-      thinking:
-        type: "enabled"
-        budget_tokens: 20000
+      extra_body:
+        thinking:
+          type: "enabled"
+          budget_tokens: 20000
 
   - model_name: "claude-opus-4-6"
     litellm_params:
@@ -29,6 +30,7 @@ model_list:
       api_key: "os.environ/API_KEY"
       api_base: "https://api.yuxor.tech/v1"
       max_input_tokens: 1000000
-      thinking:
-        type: "enabled"
-        budget_tokens: 20000
+      extra_body:
+        thinking:
+          type: "enabled"
+          budget_tokens: 20000
