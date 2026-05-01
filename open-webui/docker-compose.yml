@@ -25,7 +25,6 @@ services:
       - internal
     environment:
       - API_KEY=${API_KEY}
-      - LITELLM_LOG=DEBUG
 
   app:
     image: ghcr.io/open-webui/open-webui:main
