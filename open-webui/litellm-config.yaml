@@ -9,13 +9,14 @@ model_list:
 
   - model_name: "claude-opus-4-6-thinking"
     litellm_params:
-      model: custom_openai/claude-opus-4-6
+      model: anthropic/claude-opus-4-6
       api_key: "os.environ/API_KEY"
-      api_base: "https://api.yuxor.tech/v1"
-      extra_body:
-        thinking:
-          type: "enabled"
-          budget_tokens: 20000
+      api_base: "https://api.yuxor.tech"
+      max_tokens: 30000 # Budget'tan büyük olmak zorunda
+      thinking:
+        type: "enabled"
+        budget_tokens: 20000
+      stream: true
 
   - model_name: "claude-opus-4-6"
     litellm_params:
