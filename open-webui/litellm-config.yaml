@@ -16,7 +16,6 @@ model_list:
       thinking:
         type: "enabled"
         budget_tokens: 20000
-      stream: true
 
   - model_name: "claude-opus-4-6"
     litellm_params:
