@@ -101,8 +101,8 @@ jobs:
       - name: Open WebUI konfigürasyon güncellemesi
         if: steps.filter.outputs.openwebui == 'true' # || steps.filter.outputs.workflow == 'true'
         run: |
-          echo "Open WebUI konfigürasyonu uygulanıyor..."
-          docker compose -f open-webui/docker-compose.yml up --force-recreate -d --remove-orphans
+          echo "Open WebUI konfigürasyonu uygulanıyor(iptal))"
+          docker compose -f open-webui/docker-compose.yml down
 
       - name: TeamSpeak konfigürasyon güncellemesi
         if: steps.filter.outputs.teamspeak == 'true' # || steps.filter.outputs.workflow == 'true'
