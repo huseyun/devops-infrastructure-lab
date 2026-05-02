@@ -8,10 +8,9 @@ model_list:
       temperature: 1.0 # KRİTİK: Thinking için mecburi
       extra_headers:
         anthropic-beta: "output-128k-2025-02-19" # Eğer Yuxor 1m context için özel bir başlık istiyorsa virgülle buraya ekle (örn: "context-1m-2025-08-07, output-128k-2025-02-19")
-      extra_body:
-        thinking:
-          type: "enabled"
-          budget_tokens: 20000
+      thinking: 
+        type: "enabled"
+        budget_tokens: 2048 # Must be less than max_tokens
 
 litellm_settings:
   drop_params: true
