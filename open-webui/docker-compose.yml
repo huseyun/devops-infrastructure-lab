@@ -35,6 +35,18 @@ services:
     networks:
       - proxy-agi
       - internal
+
+  litellm:
+    image: ghcr.io/berriai/litellm:main-v1.83.14-stable
+    container_name: litellm
+    restart: always
+    volumes:
+      - ./litellm-config.yaml:/app/config.yaml
+    command: [ "--config", "/app/config.yaml", "--port", "4000" ]
+    networks:
+      - internal
+    environment:
+      - API_KEY=${API_KEY}
       
   searxng:
     image: searxng/searxng:latest
