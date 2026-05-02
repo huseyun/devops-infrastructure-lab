@@ -1,19 +1,14 @@
 model_list:
-  - model_name: claude-opus-4-6
+  - model_name: "claude-opus-4-6-thinking:1m"
     litellm_params:
-      model: anthropic/claude-opus-4-6
-      api_key: sk-a9d573d7717ad87b30486970eb609e17c6fcb2be487ca56ef3db5e3050399307
-      api_base: https://api.yuxor.tech
-      custom_headers:
-        anthropic-beta: "output-128k-2025-02-19"
-        anthropic-version: "2023-06-01"
-      max_tokens: 16384
-      # Yuxor'un her zaman stream döndüğünü belirtiyoruz
-      stream: true
+      model: openai/claude-opus-4-6
+      api_key: "os.environ/API_KEY"
+      api_base: "https://api.yuxor.tech/v1"
+      max_input_tokens: 1000000
       extra_body:
         thinking:
           type: "enabled"
-          budget_tokens: 8192
+          budget_tokens: 20000
 
 litellm_settings:
   drop_params: true
