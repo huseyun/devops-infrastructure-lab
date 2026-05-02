@@ -3,7 +3,7 @@ model_list:
     litellm_params:
       model: anthropic/claude-opus-4-6
       api_key: "os.environ/API_KEY"
-      api_base: "https://api.yuxor.tech/v1" # Garanti olması için /v1 ekledim
+      api_base: "https://api.yuxor.tech" # Garanti olması için /v1 ekledim
       max_tokens: 64000 # KRİTİK: budget_tokens'tan (20000) büyük olmalı
       temperature: 1.0 # KRİTİK: Thinking için mecburi
       extra_headers:
