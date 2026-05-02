@@ -7,10 +7,7 @@ model_list:
       max_tokens: 64000 # KRİTİK: budget_tokens'tan (20000) büyük olmalı
       temperature: 1.0 # KRİTİK: Thinking için mecburi
       extra_headers:
-        anthropic-beta: "output-128k-2025-02-19" # Eğer Yuxor 1m context için özel bir başlık istiyorsa virgülle buraya ekle (örn: "context-1m-2025-08-07, output-128k-2025-02-19")
-      thinking: 
-        type: "enabled"
-        budget_tokens: 2048 # Must be less than max_tokens
+        anthropic-beta: "output-128k-2025-02-19" # Eğer Yuxor 1m context için özel bir başlık istiyorsa virgülle buraya ekle (örn: "context-1m-2025-08-07, output-128k-2025-02-19") 
 
 litellm_settings:
   drop_params: true
