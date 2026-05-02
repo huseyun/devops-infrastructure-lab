@@ -1,13 +1,18 @@
 model_list:
-  - model_name: "claude-opus-4-6-thinking:1m"
+  - model_name: "claude-opus-4-7-thinking:1m"
     litellm_params:
-      model: anthropic/claude-opus-4-6
+      model: anthropic/claude-opus-4-7
       api_key: "os.environ/API_KEY"
-      api_base: "https://api.yuxor.tech" # Garanti olması için /v1 ekledim
-      max_tokens: 64000 # KRİTİK: budget_tokens'tan (20000) büyük olmalı
-      temperature: 1.0 # KRİTİK: Thinking için mecburi
+      api_base: "https://api.yuxor.tech"
+      max_tokens: 64000
+      temperature: 1.0
+      # API seviyesinde düşünmeyi GURURLA geri ekliyoruz
+      thinking: 
+        type: "enabled"
+        budget_tokens: 16000
       extra_headers:
-        anthropic-beta: "output-128k-2025-02-19" # Eğer Yuxor 1m context için özel bir başlık istiyorsa virgülle buraya ekle (örn: "context-1m-2025-08-07, output-128k-2025-02-19") 
+        anthropic-beta: "output-128k-2025-02-19"
 
 litellm_settings:
   drop_params: true
+  modify_params: true  # <--- Bulduğun sihirli ayar
