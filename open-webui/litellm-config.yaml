@@ -1,12 +1,11 @@
 model_list:
-  - model_name: "claude-opus-4-7-thinking:1m"
+  - model_name: "claude-3-7-sonnet-thinking:1m"
     litellm_params:
-      model: anthropic/claude-opus-4-7
+      model: anthropic/claude-3-7-sonnet-20250219
       api_key: "os.environ/API_KEY"
-      api_base: "https://api.yuxor.tech"
+      api_base: "https://api.yuxor.tech/v1"
       max_tokens: 64000
       temperature: 1.0
-      # API seviyesinde düşünmeyi GURURLA geri ekliyoruz
       thinking: 
         type: "enabled"
         budget_tokens: 16000
@@ -15,4 +14,4 @@ model_list:
 
 litellm_settings:
   drop_params: true
-  modify_params: true  # <--- Bulduğun sihirli ayar
+  modify_params: true
