@@ -16,13 +16,12 @@ on:
       - 'nextcloud/**'
       - 'springproject/**'
       - 'portainer/**'
-      - 'open-webui/**'
       - '.github/workflows/**'
       - 'teamspeak/**'
 
 jobs:
   apply-config:
-    runs-on: [self-hosted, production-server]
+    runs-on: [self-hosted, test-deployment-vm]
     
     steps:
 
@@ -39,7 +38,6 @@ jobs:
             nextcloud: 'nextcloud/**'
             spring: 'springproject/**'
             portainer: 'portainer/**'
-            openwebui: 'open-webui/**'
             teamspeak: 'teamspeak/**'
             workflow: '.github/workflows/**'
 
@@ -51,7 +49,6 @@ jobs:
           cp ${{ vars.SECRETS_PATH }}/nginx.env nginx/.env || echo "Nginx env bulunamadı"
           cp ${{ vars.SECRETS_PATH }}/pihole.env pihole/.env || echo "Pihole env bulunamadı"
           cp ${{ vars.SECRETS_PATH }}/spring.env springproject/.env || echo "Spring env bulunamadı"
-          cp ${{ vars.SECRETS_PATH }}/open-webui.env open-webui/.env || echo "Spring env bulunamadı"
           cp ${{ vars.SECRETS_PATH }}/teamspeak.env teamspeak/.env || echo "Teamspeak env bulunamadı"
           
           echo ".env dosyaları yerleştirildi."
@@ -97,12 +94,6 @@ jobs:
         run: |
           echo "Portainer konfigürasyonu uygulanıyor..."
           docker compose -f portainer/docker-compose.yml up --force-recreate -d --remove-orphans
-
-      - name: Open WebUI konfigürasyon güncellemesi
-        if: steps.filter.outputs.openwebui == 'true' # || steps.filter.outputs.workflow == 'true'
-        run: |
-          echo "Open WebUI konfigürasyonu uygulanıyor(iptal))"
-          docker compose -f open-webui/docker-compose.yml down
 
       - name: TeamSpeak konfigürasyon güncellemesi
         if: steps.filter.outputs.teamspeak == 'true' # || steps.filter.outputs.workflow == 'true'
