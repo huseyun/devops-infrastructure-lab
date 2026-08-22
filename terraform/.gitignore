@@ -2,3 +2,5 @@ env_devops.ps1
 .terraform/
 *.tfvars
 *.tfvars.json
+*.tfstate
+*.tfstate.*
