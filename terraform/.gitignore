@@ -1,4 +1,4 @@
-env.ps1
+env_devops.ps1
 .terraform/
 *.tfvars
 *.tfvars.json
