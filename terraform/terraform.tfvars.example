@@ -1,0 +1,7 @@
+# Bu dosyayı terraform.tfvars olarak kopyalayıp değerleri doldur.
+
+guest_hostname = "test-XXX"
+
+guest_specs = {
+  memory = 8096
+}

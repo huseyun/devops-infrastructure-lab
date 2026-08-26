@@ -1,10 +1,15 @@
-resource "proxmox_virtual_environment_container" "ilk_guest" {
-  node_name    = "pve"
-  vm_id        = 200
+resource "proxmox_virtual_environment_container" "dev_guests" {
+  for_each = local.guest_configuration
+
+  node_name    = local.node_name
   unprivileged = true
 
+  features {
+    nesting = true
+  }
+
   initialization {
-    hostname = "ilk-guest"
+    hostname = each.value.hostname
     ip_config {
       ipv4 { address = "dhcp" }
     }
@@ -12,11 +17,11 @@ resource "proxmox_virtual_environment_container" "ilk_guest" {
   }
 
   cpu {
-    cores = 1
+    cores = each.value.cores
   }
 
   memory {
-    dedicated = 512
+    dedicated = each.value.memory
   }
 
   disk {
@@ -32,5 +37,16 @@ resource "proxmox_virtual_environment_container" "ilk_guest" {
   operating_system {
     template_file_id = "local:vztmpl/debian-13-standard_13.6-1_amd64.tar.zst"
     type             = "debian"
+  }
+}
+
+locals {
+  node_name = data.proxmox_virtual_environment_nodes.tum_nodelar.names[0]
+  guest_configuration = {
+    for guest_name, guest_spec in var.guests : guest_name => {
+      hostname = "test-${guest_name}"
+      cores    = var.guest_specs[guest_spec].cores
+      memory   = var.guest_specs[guest_spec].memory
+    }
   }
 }
