@@ -19,7 +19,7 @@ grep -qxF "$LINE" "$HOME/.bashrc" 2>/dev/null || echo "$LINE" >> "$HOME/.bashrc"
 # 4) Repoyu getir - zaten varsa dokunma
 REPO_URL="${REPO_URL:-https://github.com/huseyun/devops-infrastructure-lab.git}"
 REPO_DIR="/root/homelab"
-[ -d "$REPO_DIR/.git" ] || git clone "$REPO_URL" "$REPO_DIR"
+[ -d "$REPO_DIR/.git" ] || git clone -b full-restructure "$REPO_URL" "$REPO_DIR"
 
 # 5) Pinli araclar - bu makine control node rolunde
 export MISE_ENV=controlnode
