@@ -1,3 +1,6 @@
 [tools]
 ansible = "14.4.0"
 uv      = "latest"
+
+[env]
+_.file = ".env.controlnode"
