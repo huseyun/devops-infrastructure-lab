@@ -1,5 +1,3 @@
-# Token tetigi. Laptop'ta calisir: proxmox-token.sh'i Proxmox host'una gonderip kosturur.
-# Token degeri laptop'a hic ugramaz; host'ta dogar, dogrudan control node'a akar.
 param(
   [Parameter(Mandatory)][string]$PveHost
 )

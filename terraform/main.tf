@@ -31,7 +31,7 @@ resource "proxmox_virtual_environment_container" "dev_guests" {
 
   network_interface {
     name   = "eth0"
-    bridge = "vmbr0"
+    bridge = local.network_bridge_name
   }
 
   operating_system {
@@ -41,7 +41,9 @@ resource "proxmox_virtual_environment_container" "dev_guests" {
 }
 
 locals {
-  node_name = data.proxmox_virtual_environment_nodes.tum_nodelar.names[0]
+  lvmthin_storage_name = var.node_specifications.lvmthin_storage_name
+  network_bridge_name  = var.node_specifications.network_bridge_name
+  node_name            = var.node_specifications.name
   guest_configuration = {
     for guest_name, guest_spec in var.guests : guest_name => {
       hostname = "test-${guest_name}"
