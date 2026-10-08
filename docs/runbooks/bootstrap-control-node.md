@@ -198,6 +198,7 @@ pct exec "$vmid" -- systemctl reload ssh
 ```bash
 echo 'export MISE_ENV=controlnode' >> ~/.bashrc
 echo 'eval "$(mise activate bash)"' >> ~/.bashrc
+cp /etc/skel/.profile ~/
 source ~/.bashrc
 ```
 
