@@ -24,14 +24,12 @@ Bootstrapping a brand new OpenBao instance on the control node, providing all ap
 
 ### 1. Installation
 
-- Get the wanted OpenBao version download link from GitHub page.
-
 - Install the package:
 
 ```bash
 cd /tmp
 curl -fsLO https://github.com/openbao/openbao/releases/download/v2.7.1/openbao_2.7.1_linux_amd64.deb
-dpkg -i <openbao-deb-file>
+apt install ./<openbao-deb-file>
 ```
 
 #### Check
@@ -51,8 +49,13 @@ Generating OpenBao TLS key and self-signed certificate...
 systemctl stop openbao
 ```
 
-- Read the following values:
+- Check the configuration by:
 
+```bash
+systemctl cat openbao
+```
+
+Verify these outputs:
 ```conf
 MemorySwapMax=0
 User=openbao
@@ -60,15 +63,7 @@ Group=openbao
 ExecStart=/usr/bin/bao server -config=/etc/openbao/openbao.hcl
 ```
 
-If values are expected, skip the next step. if not:
-
-- Change the values by entering service edit mode by:
-
-```bash
-systemctl edit openbao
-```
-
-Change the required lines, and remove the hashtag from the beginning of every change.
+If values are expected, skip the next step. if not, research the new changes and change the workflow accordingly if necessary.
 
 ### 3. Data folder configuration
 
@@ -80,7 +75,28 @@ install -d -o openbao -g openbao -m 700 /opt/openbao/data
 
 ### 4. Config file deployment
 
-.
+- copy the necessary configuration file from the ops users' downloaded repository into the configuration destination:
+
+```bash
+cd /home/ops/<git-repo-name>
+cp -f openbao.hcl /etc/openbao/
+```
+
+- Change the ownership and permissions:
+
+```bash
+chown root:openbao /etc/openbao/openbao.hcl
+chmod 640 /etc/openbao/openbao.hcl
+```
+
+#### Check
+
+Verify the ownership and permissions of file:
+
+```bash
+ls -l /etc/openbao/openbao.hcl
+```
+*Expected output: `-rw-r----- 1 root openbao 216 ...`*
 
 ### 5. Starting OpenBao
 
@@ -89,8 +105,3 @@ install -d -o openbao -g openbao -m 700 /opt/openbao/data
 ```bash
 systemctl enable --now openbao
 ```
-
-
-## temporary
-
-$vmid=<control-node-ip>

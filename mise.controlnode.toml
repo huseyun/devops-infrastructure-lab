@@ -1,3 +1,6 @@
 [tools]
 ansible = "14.4.0"
 uv      = "latest"
+
+[env]
+BAO_ADDR = http://127.0.0.1:8200

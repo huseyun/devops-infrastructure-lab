@@ -127,7 +127,7 @@ pct create $vmid "$template_storage:vztmpl/$template" \
 --features nesting=1 \
 --net0 name=eth0,bridge="$bridge",gw="$ct_gateway",ip="$ct_ip" \
 --cores 1 \
---memory 1024 \
+--memory 1536 \
 --rootfs "$rootfs_storage":8 \
 --onboot 1 \
 --ssh-public-keys /root/operator.pub
