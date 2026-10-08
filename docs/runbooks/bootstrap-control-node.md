@@ -60,26 +60,26 @@ shoud yield pair of SSH key files.
 pvesh get /cluster/nextid
 ```
 
-#### Get the directory storage and lvmthin storage names by running:
+- Get the directory storage and lvmthin storage names by running:
 
 ```bash
 pvesm status
 ```
 
-#### Update the available container templates, and get the list of all available templates:
+- Update the available container templates, and get the list of all available templates:
 
 ```bash
 pveam update
 pveam available --section system
 ```
 
-#### Acquire bridge name by running:
+- Acquire bridge name
 
 ```bash
 ip link show type bridge
 ```
 
-#### Define the variables for the shell session for one time use:
+- Define the variables for the shell session for one time use:
 
 ```bash
 vmid=<next-available-vm-id>
@@ -95,12 +95,12 @@ template=<template-name>
 ### 2. CT template download if not existent
 **Run on: Proxmox host**
 
-#### Check if a Debian container image is present:
+- Check if a Debian container image is present:
 ```bash
 pveam list "$template_storage"
 ```
 
-#### If template is not present, download it by running:
+- If template is not present, download it by running:
 ```bash
 pveam download "$template_storage" "$template"
 ```
@@ -108,7 +108,7 @@ pveam download "$template_storage" "$template"
 ### 3. Transfer operator public SSH key to Proxmox host
 
 
-#### In operator machine, transfer the public SSH key by:
+- In operator machine, transfer the public SSH key by:
 **Run on: Operator machine**
 
 ```bash
@@ -118,7 +118,7 @@ scp "$env:USERPROFILE/.ssh/id_ed25519_homelab.pub" root@<proxmox-host-ip>:/root/
 ### 4. Create the control node LXC
 **Run on: Proxmox host**
 
-#### Create the LXC by:
+- Create the LXC by:
 
 ```bash
 pct create $vmid "$template_storage:vztmpl/$template" \
@@ -136,7 +136,7 @@ pct create $vmid "$template_storage:vztmpl/$template" \
 ### 5. Update and install base packages
 **Run on: Proxmox host**
 
-#### Update and install base packages:
+- Update and install base packages:
 
 ```bash
 pct exec "$vmid" -- apt-get update
@@ -177,13 +177,13 @@ ssh ops@<control-node-ip>
 
 **Run on: Proxmox host**
 
-#### Turn off root SSH:
+- Turn off root SSH:
 
 ```bash
 pct exec "$vmid" -- sh -c 'echo "PermitRootLogin no" > /etc/ssh/sshd_config.d/10-disable-root.conf'
 ```
 
-#### Verify the configuration is valid and activate it in the active session:
+- Verify the configuration is valid and activate it in the active session:
 
 ```bash
 pct exec "$vmid" -- sshd -t
@@ -193,7 +193,7 @@ pct exec "$vmid" -- systemctl reload ssh
 ### 8. Configure mise activation and environment information
 **Run on: control node as ops**
 
-#### Activate mise and configure the environment in all bash sessions:
+- Activate mise and configure the environment in all bash sessions:
 
 ```bash
 echo 'export MISE_ENV=controlnode' >> ~/.bashrc
@@ -204,7 +204,7 @@ source ~/.bashrc
 ### 9. Main repository configuration
 **Run on: control node as ops**
 
-#### Clone the repo via HTTPS and trust mise inside the repository:
+- Clone the repo via HTTPS and trust mise inside the repository:
 
 ```bash
 git clone <https-clone-link>
@@ -213,7 +213,7 @@ mise trust
 mise install
 ```
 
-##### Check
+#### Check
 
 Check if activation and installation is correct:
 
