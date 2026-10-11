@@ -78,7 +78,7 @@ install -d -o openbao -g openbao -m 700 /opt/openbao/data
 - copy the necessary configuration file from the ops users' downloaded repository into the configuration destination:
 
 ```bash
-cd /home/ops/<git-repo-name>
+cd /home/ops/<git-repo-name>/openbao
 cp -f openbao.hcl /etc/openbao/
 ```
 
