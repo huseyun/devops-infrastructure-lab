@@ -50,7 +50,10 @@ bao secrets enable -path=app-dev -version=2 kv
 - Upload the required policies by:
 
 ```bash
-bao policy write infra-read openbao/policies/infra-read.hcl
+for f in openbao/policies/*.hcl; do
+  bao policy write "$(basename "$f" .hcl)" "$f"
+done
+```
 
 ## Verification
 
