@@ -10,3 +10,8 @@
 
 - check for unclear steps
 - create checks and search the whole runbook.
+
+## [configuration file](./docs/runbooks/openbao/configure-openbao.md)
+
+- prerequisites
+- 

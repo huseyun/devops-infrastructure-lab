@@ -8,7 +8,7 @@
 
 ### NOT used for
 
-## Prerequisities
+## Prerequisites
 
 ## Steps
 

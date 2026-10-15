@@ -2,9 +2,9 @@
 
 ## Purpose
 
-Having a newly initialized OpenBao instance with:
+Having a OpenBao instance with:
 
-- appropriate operator roles.
+- Appropriate mount points.
 - Applied written policies.
 
 ## Scope
@@ -17,9 +17,9 @@ Having a newly initialized OpenBao instance with:
 
 ### NOT used for
 
-.
+Initializing, unsealing or reinstalling from a backup.
 
-## Prerequisities
+## Prerequisites
 
 - Having a token with operator policy. Initial root token for first time entry.
 
@@ -27,17 +27,34 @@ Having a newly initialized OpenBao instance with:
 
 ## Steps
 
-### 1. Logging in with an operator key
+### 1. Logging in with an operator token
 
 - Enter the operator key without making it visible in the console by running `bao login`.
 
 #### Check
 
-.
+Verify token authorization level:
+
+```bash
+bao token lookup
+```
+*expected output: `policies     [operator/root]`*
+
+Token helper file is saved to `~/.vault-token`.
 
 ### 2. Create required mounts
 
-- Create the required mounts by:
+#### Check
+
+Verify which mounts you need to install by:
+
+```bash
+bao secrets list
+```
+
+Every mount that is not listed here should be initialized by:
+
+- Create the uninitialized mounts by:
 
 ```bash
 bao secrets enable -path=infra -version=2 kv
@@ -56,6 +73,29 @@ done
 ```
 
 ## Verification
+
+- Check whether the mounts were succesfully added by listing mounts:
+
+```bash
+bao secrets list -detailed
+```
+*Expected output: all added mounts listed.*
+
+- Check whether all policies were added by:
+
+```bash
+bao policy list
+```
+*Expected output: all policy files were added named by their file name.*
+
+- Check whether all policies match the file they were added from by:
+
+```bash
+for f in openbao/policies/*.hcl; do
+  diff <(bao policy read "$(basename "$f" .hcl)") "$f" && echo "OK $f"
+done
+```
+*Expected output: all policy files are OK'd.*
 
 ## Reverting
 
