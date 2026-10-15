@@ -1,3 +1,4 @@
+# <------>
 # Policies for secret configurations
 
 path "infra/*" {
@@ -12,6 +13,7 @@ path "app-prod/*" {
   capabilities = ["read", "create", "update", "delete", "list", "patch"]
 }
 
+# <------>
 # Mount permissions
 
 path "sys/mounts/*" {
@@ -22,6 +24,7 @@ path "sys/mounts" {
   capabilities = ["read"]
 }
 
+# <------>
 # Policy permissions
 
 path "sys/policies/acl" {
@@ -32,6 +35,7 @@ path "sys/policies/acl/*" {
   capabilities = ["read", "create", "update", "delete"]
 }
 
+# <------>
 # Authentication permissions
 
 path "sys/auth" {
@@ -46,8 +50,10 @@ path "auth/userpass/*" {
   capabilities = ["read", "create", "update", "delete", "list"]
 }
 
+# Only token authentication is specifically controlled.
+
 path "auth/token/create" {
-  capabilities = ["create", "update"]
+  capabilities = ["create", "update", "sudo"]
 }
 
 path "auth/token/revoke" {

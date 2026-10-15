@@ -72,6 +72,32 @@ for f in openbao/policies/*.hcl; do
 done
 ```
 
+### 4. Open userpass and create admin user
+
+- Create the admin user, and pass the password invisibly by:
+
+```bash
+bao auth enable userpass
+bao auth list
+
+read -rs PW
+echo -n "$PW" | bao write auth/userpass/users/<user-name> \
+  password=- \
+  token_policies=admin \
+  token_ttl=3h \
+  token_max_ttl=15h
+unset PW
+```
+
+#### Check
+
+Verify added user and their available admin policy:
+
+```bash
+bao read auth/userpass/users/<user-name>
+```
+*Expected output: token_policies=[admin] and correct TTL times.*
+
 ## Verification
 
 - Check whether the mounts were succesfully added by listing mounts:
